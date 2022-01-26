@@ -1,38 +1,359 @@
-.App {
-  text-align: center;
+/*///////////////////////////////////////////////////////////////////////////////////////////
+----------------BEGINNING OF STYLING THE MAIN NAVIGATION BAR--------------------------------
+///////////////////////////////////////////////////////////////////////////////////////////*/
+
+.main_nav_top_container {
+  background-color: rgb(36, 40, 80);
+  /* margin: 0;
+  padding: 4px 30px; */
+  padding: 0 100px;
+  width: 100%;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.main_logo {
+  color: #f5f5f5;
+  letter-spacing: 3px;
+  cursor: pointer;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.user_profile {
+  display: flex;
+  align-items: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.logged_in_user_details {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user_initials {
+  text-transform: uppercase;
+  background-color: #fff;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-size: 13px;
+  cursor: grab;
+}
+
+.logout_user_btn {
+  border: none;
+  height: 45px;
+  padding: 0 20px;
+  margin-right: 40px;
+  transition: all 300ms ease;
+  background-color: transparent;
+  color: rgb(218, 96, 52);
+  cursor: pointer;
+}
+
+.logout_user_btn:hover {
+  background-color: orangered;
+  color: #fff;
+}
+
+.name_type {
+  margin-right: 30px;
+  line-height: 18px;
+  text-align: right;
+  color: #f5f5f5;
+  font-weight: normal;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.user_type {
+  font-weight: bold;
+  font-size: 11px;
+}
+
+/*///////////////////////////////////////////////////////////////////////////////////////////
+-------------------ENDING OF STYLING THE MAIN NAVIGATION BAR--------------------------------
+///////////////////////////////////////////////////////////////////////////////////////////*/
+
+/*///////////////////////////////////////////////////////////////////////////////////////////
+-------------------STARTING OF STYLING THE CLASS TEACHER DASHBOARD--------------------------------
+///////////////////////////////////////////////////////////////////////////////////////////*/
+
+.class_teacher_dashboard_container {
+  /* background-color: #fff; */
+  height: calc(100vh - 45px);
+  /* padding: 0 100px; */
+  display: flex;
+}
+
+.details_contents {
+  /* background-color: #fff; */
+  height: 100%;
+  width: 80%;
+  padding: 8px;
+}
+
+.left_dashboard_menu {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 280px;
+  height: calc(100vh - 45px);
+  /* margin-top: 2px; */
+  padding: 15px;
+  border-top: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.school_grade_titles {
+  margin-bottom: 20px;
+}
+
+.school_title {
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 18px;
+}
+
+.grade_title {
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 15px;
+  border-left: 8px solid rgb(0, 255, 234);
+  /* border-right: 3px solid rgb(0, 255, 234); */
+  cursor: pointer;
+  display: inline-block;
+  /* border-radius: 50px; */
+  padding: 0 10px;
+}
+
+.information_btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid #fff;
+  padding: 6px 12px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  color: #fff;
+  border-radius: 6px;
+  transition: 300ms all ease;
+  cursor: pointer;
+}
+
+.information_btn:hover {
+  background-color: #fff;
+  color: rgb(36, 40, 80);
+}
+
+.information_btn:hover .info_icon {
+  color: rgb(36, 40, 80);
+}
+
+.students_btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid #fff;
+  padding: 6px 12px;
+  margin-bottom: 18px;
+  text-transform: uppercase;
+  color: #fff;
+  border-radius: 6px;
+  transition: 300ms all ease;
+  cursor: pointer;
+}
+
+.students_btn:hover {
+  background-color: #fff;
+  color: rgb(36, 40, 80);
+}
+
+.students_btn:hover .std_icon {
+  color: rgb(36, 40, 80);
+}
+
+.add_new_student_main_btn{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fff;
+  padding: 6px 12px;
+  margin-bottom: 18px;
+  text-transform: uppercase;
+  background-color: transparent;
+  color: #fff;
+  border-radius: 6px;
+  transition: 300ms all ease;
+  cursor: pointer;
+}
+
+.add_new_student_main_btn:hover{
+  background-color: #fff;
+  color: rgb(36, 40, 80);
+}
+
+.btn_link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 0 15px;
+  transition: all 300ms ease;
+  margin-bottom: 5px;
+}
+
+.btn_link:hover {
+  padding-right: 10px;
+}
+
+.btn_link:hover p {
+  font-weight: normal;
+}
+
+.btn_link p {
+  color: #f5f5f5;
+  font-family: sans-serif;
+  font-weight: lighter;
+  transition: all 300ms ease;
+  display: inline-block;
+}
+
+.student_link_icon {
+  display: flex;
+  align-items: center;
+}
+
+.information_link_btns {
+  margin: 20px 0;
+}
+
+/*///////////////////////////////////////////////////////////////////////////////////////////
+-------------------ENDING OF STYLING THE CLASS TEACHER DASHBOARD--------------------------------
+///////////////////////////////////////////////////////////////////////////////////////////*/
+
+/*///////////////////////////////////////////////////////////////////////////////////////////
+-------------------STARTING OF STYLING THE STUDENT BOARD--------------------------------
+///////////////////////////////////////////////////////////////////////////////////////////*/
+
+.the_class_list {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.sin_student_list_display {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: flex-end;
 }
 
-.App-link {
-  color: #61dafb;
+.sl_header {
+  display: flex;
+  align-items: center;
+  padding: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.back_to_student_select_btn {
+  width: 100px;
+  height: 40px;
+  background-color: orangered;
+  color: #f5f5f5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 20px 8px 12px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 300ms ease;
+  margin-right: 30px;
+  text-decoration: none;
+}
+
+.back_to_student_select_btn:hover {
+  opacity: 0.6;
+  padding: 8px 8px;
+}
+
+.sl_title {
+  color: #f5f5f5;
+  font-weight: normal;
+  font-size: 25px;
+  text-transform: uppercase;
+}
+
+.sin_student {
+  background-color: #fff;
+  margin-bottom: 8px;
+  /*REMEMBER TO ADJAST THE WIDTH OF THIS AREA LATER IN THE FUTURE*/
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0 0 20px;
+  /* box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.288),
+    -2px -2px 2px rgba(255, 255, 255, 0.288); */
+  border-radius: 3px;
+}
+
+.sin_min_details {
+  width: 40%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: red; */
+}
+
+.sin_name {
+  /* margin-right: 30px; */
+}
+
+.sin_more_btn {
+  /* background-color: rgb(1, 161, 231); */
+  color: blue;
+
+  font-size: 12px;
+  cursor: pointer;
+  padding: 3px 15px;
+  /* border-right: 5px solid #fff; */
+  transition: all 300ms ease;
+}
+
+.sin_more_btn:hover {
+  text-decoration: underline;
+  color: rgb(7, 255, 7);
+}
+
+.sin_name {
+  font-size: 13px;
+}
+
+.sin_gender {
+  font-size: 13px;
+}
+
+.gender_select_box {
+  display: flex;
+}
+
+.return_to_student_btn {
+  background-color: orangered;
+  color: #fff;
+  margin-top: 80px;
+  padding: 8px 20px;
+  text-align: center;
+  transition: all 300ms ease;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.return_to_student_btn:hover {
+  letter-spacing: 2px;
+  background-color: #fff;
+  color: orangered;
 }

@@ -1,0 +1,95 @@
+.physical_titles {
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  grid-template-areas: "date date gHealth gHealth problem problem hows hows prev prev prev";
+  /* grid-row-gap: 5px; */
+}
+
+.phy_date {
+  text-align: center;
+  grid-area: date;
+}
+.phy_general_health {
+  text-align: center;
+  grid-area: gHealth;
+}
+.phy_problem {
+  text-align: center;
+  grid-area: problem;
+}
+.phy_how {
+  text-align: center;
+  grid-area: hows;
+}
+.phy_previous {
+  text-align: center;
+  grid-area: prev;
+}
+
+.physical_titles div {
+  border-left: 2px solid #fff;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  font-size: 11px;
+  padding: 8px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.physical_conditions {
+  /* display: grid;
+  grid-template-columns: repeat (11, 1fr);
+  grid-template-areas: "date date gHealth gHealth problem problem hows hows prev prev prev";
+  grid-row-gap: 5px; */
+  margin-top: 5px;
+}
+
+.actual_conditions {
+  margin-top: 30px;
+}
+
+.physical_date {
+  margin-right: 2px;
+  border: none;
+  outline: none;
+  padding: 2px;
+  width: calc(18.181% - 2px);
+  /* grid-area: date; */
+}
+
+.physical_general_health {
+  margin-right: 2px;
+  border: none;
+  outline: none;
+  padding: 2px;
+  width: calc(18.181% - 2px);
+  /* grid-area: gHealth; */
+}
+
+.physical_problem {
+  margin-right: 2px;
+  border: none;
+  outline: none;
+  padding: 2px;
+  width: calc(18.181% - 2px);
+  /* grid-area: problem; */
+}
+
+.physical_how_part {
+  margin-right: 2px;
+  border: none;
+  outline: none;
+  padding: 2px;
+  width: calc(18.181% - 2px);
+  /* grid-area: hows; */
+}
+
+.physical_previous_illness {
+  /* margin-right: 2px; */
+  border: none;
+  outline: none;
+  padding: 2px;
+  width: 27.2727%;
+  /* grid-area: prev; */
+}

@@ -1,0 +1,27 @@
+.gr_title {
+  background-color: #fff;
+  padding: 8px 12px;
+
+  margin-bottom: 12px;
+  border-radius: 5px;
+}
+
+.gr_remarks_box {
+  /* background-color: red; */
+  height: 80%;
+  position: relative;
+  border-radius: 5px;
+}
+
+.gr_remarks_box textarea {
+  border: none;
+  outline: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+}

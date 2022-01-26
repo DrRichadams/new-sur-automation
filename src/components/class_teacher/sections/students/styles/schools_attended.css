@@ -1,0 +1,322 @@
+.top_main_title {
+  margin-bottom: 20px;
+}
+
+.exemption_message {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background-color: transparent !important;
+  border: 1px solid #fff;
+  color: #fff;
+}
+
+.schools_attended_messages {
+  width: 100%;
+  height: 35px;
+  background-color: #fff;
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
+
+.date_box {
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.date_label {
+  font-size: 12px;
+  margin-right: 3px;
+}
+
+.big_date_title {
+  margin-right: 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.date_input {
+  width: 90px;
+  border: none;
+  outline: none;
+  background-color: #ffffff;
+  padding: 0px 8px;
+  border-radius: 3px;
+  text-align: center;
+}
+
+.message_dots {
+  display: flex;
+  align-items: center;
+}
+
+.decision_box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  transition: all 300ms ease;
+  cursor: pointer;
+}
+
+.radio_box {
+  /* background-color: red; */
+  width: 10px;
+  height: 10px;
+  padding: 8px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  margin-right: 5px;
+  transition: all 300ms ease;
+}
+
+.message_dates {
+  display: flex;
+  align-items: center;
+}
+
+.date_boxes {
+  display: flex;
+  align-items: center;
+}
+
+.age_entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.age_entry_input {
+  border: none;
+  outline: none;
+  background-color: #c9c9c9;
+  padding: 3px 8px;
+  text-align: center;
+}
+
+.schools_left_details {
+  margin-top: 30px;
+  /* background-color: #fff; */
+  border: 1px solid #fff;
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-areas:
+    "adminNo name name name name name name name madium adminInfo adminInfo dapInfo dapInfo"
+    "adminNo name name name name name name name madium adminDate adminGrade depDate depGrade";
+}
+
+.admission_no {
+  border-left: 0.0001rem solid #fff;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  grid-area: adminNo;
+}
+.name_of_school {
+  border-left: 0.0001rem solid #fff;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  grid-area: name;
+}
+.medium {
+  border-left: 0.0001rem solid #fff;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  grid-area: madium;
+}
+.admision_info {
+  border-left: 0.0001rem solid #fff;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  grid-area: adminInfo;
+}
+.admission_date {
+  border-left: 0.0001rem solid #fff;
+  border-top: 0.0001rem solid #fff;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  grid-area: adminDate;
+}
+.admission_grade {
+  border-left: 0.0001rem solid #fff;
+  border-top: 0.0001rem solid #fff;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  grid-area: adminGrade;
+}
+.departure_info {
+  border-left: 0.0001rem solid #fff;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  grid-area: dapInfo;
+}
+.departure_date {
+  border-left: 0.0001rem solid #fff;
+  border-top: 0.0001rem solid #fff;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  grid-area: depDate;
+}
+.departure_grade {
+  border-left: 0.0001rem solid #fff;
+  border-top: 0.0001rem solid #fff;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  grid-area: depGrade;
+}
+
+.school_left_box {
+  /* background-color: #fff; */
+  /* display: grid;
+  grid-template-columns: repeat(13, 1fr);
+  grid-template-rows: 1fr;
+  grid-gap: 3px; */
+  /* grid-template-areas: "adminNo name name name name name name name madium adminDate adminGrade depDate depGrade"; */
+  /* margin-top: 3px; */
+  margin-bottom: 5px;
+}
+
+.school_left_box input {
+  margin-right: 3px;
+  padding: 5px 8px;
+}
+
+.input_admin_no {
+  border: none;
+  outline: none;
+  /* grid-area: adminNo; */
+  /* grid-column: span 1; */
+  width: calc(7.692% - 3px);
+}
+.input_school_name {
+  border: none;
+  outline: none;
+  /* grid-area: name; */
+  /* grid-column: span 7; */
+  width: calc(53.846% - 3px);
+}
+.input_medium {
+  border: none;
+  outline: none;
+  /* grid-area: madium; */
+  /* grid-column: span 1; */
+  width: calc(7.692% - 3px);
+}
+.input_date_of_admission {
+  border: none;
+  outline: none;
+  /* grid-area: adminDate; */
+  /* grid-column: span 1; */
+  width: calc(7.692% - 3px);
+}
+.input_grade_of_admission {
+  border: none;
+  outline: none;
+  /* grid-area: adminGrade; */
+  /* grid-column: span 1; */
+  width: calc(7.692% - 3px);
+}
+.input_date_of_departure {
+  border: none;
+  outline: none;
+  /* grid-area: depDate; */
+  /* grid-column: span 1; */
+  width: calc(7.692% - 3px);
+}
+.input_grade_of_departure {
+  border: none;
+  outline: none;
+  /* grid-area: depGrade; */
+  /* grid-column: span 1; */
+  width: calc(7.692% - 3px);
+}
+
+.schools_left_sections {
+  /* margin-bottom: 5px; */
+  margin-top: 20px;
+}
+
+.add_left_school {
+  background-color: #fff;
+  width: 120px;
+  /* height: 60px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  padding: 5px;
+  border-radius: 4px;
+  transition: all 300ms ease-in;
+  cursor: pointer;
+}
+
+.add_left_school:hover {
+  background-color: rgb(157, 162, 219);
+  border-left: 5px solid rgba(0, 155, 245, 0.959);
+}
+
+.add_left_school:hover .surround_border {
+  border-color: #fff;
+  color: #fff;
+}
+
+.surround_border {
+  border: 2px dotted rgb(36, 40, 80);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(36, 40, 80);
+}

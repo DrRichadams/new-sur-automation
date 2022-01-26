@@ -1,0 +1,208 @@
+.phase_box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.phase_title {
+  background-color: #fff;
+  /* margin-bottom: 30px;
+  margin-top: 15px; */
+  padding: 4px 12px;
+  /* border-radius: 4px; */
+  width: 600px;
+  border-radius: 3px;
+}
+
+.phase_btns {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  /* border: 1px solid #fff; */
+  flex: 1;
+  padding: 3px 3px;
+  margin-left: 5px;
+}
+
+.phase_btns button {
+  padding: 4px 12px;
+  margin-right: 6px;
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  outline: none;
+  border-radius: 3px;
+  transition: all 300ms ease;
+}
+
+.phase_btns button:hover {
+  background: linear-gradient(#fff, #fff);
+}
+
+.year_title {
+  background-color: #fff;
+  /* margin-bottom: 30px;
+    margin-top: 15px; */
+  padding: 4px 12px;
+  /* border-radius: 4px; */
+  width: 300px;
+  font-size: 13px;
+  margin-right: 5px;
+}
+.grade_name_title {
+  background-color: #fff;
+  /* margin-bottom: 30px;
+  margin-top: 15px; */
+  padding: 4px 12px;
+  /* border-radius: 4px; */
+  width: 300px;
+  font-size: 13px;
+  margin-right: 5px;
+}
+.level_title {
+  background-color: #fff;
+  /* margin-bottom: 30px;
+  margin-top: 15px; */
+  padding: 4px 12px;
+  /* border-radius: 4px; */
+  width: 300px;
+  font-size: 13px;
+  margin-right: 5px;
+}
+.english_home_title {
+  background-color: #fff;
+  /* margin-bottom: 30px;
+  margin-top: 15px; */
+  padding: 4px 12px;
+  /* border-radius: 4px; */
+  width: 300px;
+  font-size: 13px;
+  margin-right: 5px;
+}
+
+.year_month_box,
+.grade_box,
+.leve_grade_box,
+.english_home_box {
+  margin-bottom: 5px;
+  display: flex;
+}
+
+.year_month_box input,
+.grade_box input,
+.leve_grade_box input,
+.english_home_box input {
+  border: none;
+  outline: none;
+  margin-right: 3px;
+  padding: 4px;
+  width: 65px;
+  /* height: 30px; */
+  text-align: center;
+}
+
+.year_month_box ~ div,
+.grade_box ~ div,
+.leve_grade_box ~ div,
+.english_home_box ~ div {
+  font-size: 13px;
+}
+
+.schola_phase_2 {
+  margin-top: 30px;
+}
+
+.sa_subject_box {
+  margin-bottom: 5px;
+  display: flex;
+}
+
+.sa_subject_title {
+  background-color: #fff;
+  /* margin-bottom: 30px;
+  margin-top: 15px; */
+  padding: 4px 12px;
+  /* border-radius: 4px; */
+  width: 300px;
+  font-size: 13px;
+  margin-right: 5px;
+  border: none;
+  outline: none;
+}
+
+.sa_subject_input_fields input {
+  border: none;
+  outline: none;
+  margin-right: 3px;
+  padding: 4px;
+  width: 65px;
+  text-align: center;
+}
+
+.schola_phase_3 {
+  margin-top: 50px;
+}
+
+.schola_phase_3 ~ div ~ div {
+  background-color: #fff;
+}
+
+.al_title,
+.ag_title,
+.pf_title,
+.sat_title,
+.satd_title {
+  background-color: #fff;
+  /* margin-bottom: 30px;
+  margin-top: 15px; */
+  padding: 4px 10px;
+  /* border-radius: 4px; */
+  width: 300px;
+  font-size: 10px;
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.al_input_boxes input,
+.ag_input_boxes input,
+.pf_input_boxes input,
+.sat_input_boxes input,
+.satd_input_boxes input {
+  border: none;
+  outline: none;
+  margin-right: 3px;
+  padding: 4px;
+  width: 65px;
+  text-align: center;
+}
+
+.average_learner_box,
+.average_grade_box,
+.pass_fail_box,
+.school_attendance_box,
+.satd_detail_box {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.sa_add_subject {
+  border: 1px solid #fff;
+  border-radius: 3px;
+  outline: none;
+  background-color: transparent;
+  color: #fff;
+  padding: 5px 15px;
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100px;
+  transition: all 300ms ease;
+}
+
+.sa_add_subject:hover {
+  padding: 5px 10px;
+  opacity: 0.7;
+}

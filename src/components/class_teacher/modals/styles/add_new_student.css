@@ -1,0 +1,163 @@
+.add_new_student {
+  background-color: rgba(36, 40, 80, 0.911);
+  position: absolute;
+  z-index: 2000;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add_new_student_box {
+  background-color: #fff;
+  padding: 50px 40px;
+  position: relative;
+  border-radius: 20px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.637);
+}
+
+.add_new_student_title {
+  color: #111;
+  margin-bottom: 45px;
+  line-height: 1em;
+  font-weight: 500;
+  padding-left: 10px;
+  border-left: 5px solid rgb(1, 161, 231);
+}
+
+.inputBox {
+  position: relative;
+  width: 300px;
+  height: 46px;
+  margin-bottom: 35px;
+}
+
+.inputBox:last-child {
+  margin-bottom: 0;
+}
+
+.inputBox input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border: 1px solid rgb(1, 161, 231);
+  background: transparent;
+  padding: 10px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  outline: none;
+  font-size: 16px;
+  color: #111;
+  font-weight: 300;
+}
+
+.inputBox span {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  padding: 10px;
+  display: inline-block;
+  font-size: 16px;
+  color: #111;
+  font-weight: 300px;
+  transition: 0.5s;
+  pointer-events: none;
+}
+
+.inputBox input:focus ~ span,
+.inputBox input:valid ~ span {
+  transform: translateX(-10px) translateY(-32px);
+  font-size: 12px;
+}
+
+.inputBox input[type="submit"] {
+  background-color: #2196f3;
+  color: #fff;
+  border: none;
+  max-width: 120px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.5s;
+}
+
+.inputBox input[type="submit"]:hover {
+  background-color: #dbdbdb;
+  color: #111;
+}
+
+.inputBox select {
+  width: 100%;
+  border: 1px solid rgb(1, 161, 231);
+  background: transparent;
+  padding: 10px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  outline: none;
+  font-size: 16px;
+  color: #111;
+  font-weight: 300;
+}
+
+.exit_add_student {
+  background-color: red;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  transition: 0.5s;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  transform: rotate(45deg);
+}
+
+.exit_add_student:hover {
+  background-color: rgb(247, 108, 58);
+  color: #111;
+}
+
+.add_student_success {
+  background-color: #fff;
+  padding: 50px 40px;
+  position: relative;
+  border-radius: 20px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.637);
+  width: 400px;
+  height: 500px;
+}
+
+.success_contents_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #2196f3;
+}
+
+.success_message {
+  margin: 30px 0;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.return_to_students_btn {
+  border: none;
+  outline: none;
+  background-color: rgba(36, 40, 80, 1);
+  color: #fff;
+  padding: 8px 30px;
+  border-radius: 6px;
+  transition: 0.5s;
+}
+
+.return_to_students_btn:hover {
+  opacity: 0.7;
+}

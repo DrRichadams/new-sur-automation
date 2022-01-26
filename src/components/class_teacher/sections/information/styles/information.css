@@ -1,0 +1,269 @@
+.instructions_container {
+  position: relative;
+  /* background-color: grey; */
+  width: 100%;
+  height: 100%;
+}
+
+.gender_visual {
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+}
+
+.section_title {
+  font-size: 25px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border-left: 8px solid rgb(172, 222, 243);
+  color: rgb(172, 222, 243);
+  padding-left: 8px;
+}
+
+.student_type {
+  /* background-color: #fff; */
+  width: 250px;
+  padding: 15px 25px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.femaleType {
+  background-color: rgb(62, 206, 124);
+  box-shadow: -3px -3px 8px rgba(0, 0, 0, 0.342),
+    5px 5px 8px rgba(0, 0, 0, 0.342);
+  color: #fff;
+}
+
+.maleType {
+  background-color: rgb(255, 255, 255);
+  box-shadow: -3px -3px 8px rgba(0, 0, 0, 0.342),
+    5px 5px 8px rgba(0, 0, 0, 0.342);
+}
+
+.sect_navigator {
+  margin-left: 25px;
+  margin-top: 15px;
+}
+
+.control_btn {
+  background-color: #fff;
+  color: rgb(1, 161, 231);
+  display: inline-block;
+  margin-right: 8px;
+  margin-bottom: 15px;
+  padding: 5px 9px;
+  cursor: pointer;
+  transition: all 300ms ease;
+  font-size: 15px;
+  border-radius: 5px;
+}
+
+.control_btn:hover {
+  opacity: 0.5;
+}
+
+.instructions_details_container {
+  margin-left: 30px;
+  margin-top: 15px;
+}
+
+.idc_contents {
+  margin-left: 20px;
+}
+
+.idc_contents p {
+  background-color: #fff;
+  margin: 12px 100px 12px 12px;
+  padding: 8px 12px;
+  font-size: 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 500ms ease;
+}
+
+.idc_contents p:hover {
+  opacity: 0.8;
+}
+
+.idc_title {
+  color: #f5f5f5;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/*STYLING OBSERVATIONS COMPONENT*/
+
+.combined_title {
+  /* background-color: #fff; */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 300px;
+  margin: 20px 50px;
+  cursor: pointer;
+}
+
+.cm_num {
+  background-color: rgb(36, 40, 80);
+  padding: 15px;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  color: #fff;
+  margin-right: 15px;
+  border-radius: 6px;
+}
+
+.cm_name {
+  color: #fff;
+  font-size: 20px;
+}
+
+.left_observations_panel {
+  display: flex;
+}
+
+.vertical_bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20px;
+  margin-left: 50px;
+  margin-top: 30px;
+  /* background-color: grey; */
+}
+
+.dot {
+  width: 20px;
+  height: 20px;
+  /* background-color: #fff; */
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+.pipe {
+  width: 2px;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.first_pipe {
+  height: 100px;
+}
+
+.second_pipe {
+  height: 200px;
+}
+
+.observations_controls {
+  /* background-color: red; */
+  margin-top: 15px;
+  margin-left: 20px;
+}
+
+.ob_btn {
+  background-color: transparent;
+  color: #fff;
+  margin-bottom: 1px;
+  display: block;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  padding: 12px 20px;
+  width: 200px;
+  border: 2px solid #fff;
+  transition: all 300ms ease;
+}
+
+.ob_btn:hover {
+  opacity: 0.6;
+}
+
+.btn_social {
+  margin-top: 37%;
+}
+
+.observations_section {
+  /* background-color: grey; */
+  display: flex;
+}
+
+.right_observations_panel {
+  /* background-color: #fff; */
+  flex: 1;
+  padding: 0 20px;
+  margin-left: 110px;
+}
+
+.ob_main_btn {
+  display: flex;
+  cursor: pointer;
+  transition: all 300ms ease;
+  margin-bottom: 5px;
+}
+
+.ob_main_btn:hover {
+  opacity: 0.6;
+}
+
+.ob_main_btn:hover .ob_title_name {
+  letter-spacing: 5px;
+}
+
+.ob_left_num {
+  background-color: rgb(62, 206, 124);
+  width: 60px;
+  height: 60px;
+  border-radius: 8px 0 0 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #f5f5f5;
+  letter-spacing: 2px;
+}
+
+.ob_title_name {
+  font-size: 25px;
+  background-color: #f5f5f5;
+  width: 65%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 300ms ease;
+}
+
+.ob_icon {
+  color: rgb(36, 40, 80);
+  background-color: #f5f5f5;
+  width: 60px;
+  height: 60px;
+  border-radius: 0 8px 8px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5px;
+}
+
+.ob_children {
+  padding-top: 5px;
+  padding-left: 30px;
+  padding-right: 30px;
+  transition: all 300ms ease;
+}
+
+.ob_children p {
+  color: #f5f5f5;
+  margin-bottom: 3px;
+  font-size: 13px;
+}

@@ -1,0 +1,65 @@
+.control_btns {
+  display: flex;
+}
+
+.control_btns div {
+  color: #fff;
+  font-size: 13px;
+  border: 2px solid #fff;
+  padding: 5px 8px;
+  margin-right: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 300ms ease;
+}
+
+.control_btns div:hover {
+  background: linear-gradient(
+    rgba(196, 196, 196, 0.5),
+    rgba(53, 185, 241, 0.5)
+  );
+  border-color: rgba(255, 255, 255, 0.322);
+}
+
+.ob_title_box {
+  background-color: #fff;
+  padding: 5px 8px;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+.ob_section_titles {
+  display: flex;
+}
+
+.ob_section_titles div {
+  background-color: #fff;
+  margin-right: 5px;
+  padding: 5px 8px;
+}
+
+.ob_grade {
+  width: calc(20% - 5px);
+}
+.ob_year {
+  width: calc(20% - 5px);
+}
+.ob_report {
+  width: calc(60% - 5px);
+}
+
+.ob_section_content_box {
+  margin-top: 10px;
+}
+
+.ob_section_content {
+  margin-bottom: 3px;
+}
+
+.ob_section_content input {
+  margin-right: 5px;
+  border: none;
+  outline: none;
+  padding: 2px;
+}
