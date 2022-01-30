@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { toggleMainMenus } from "../../store/actions/classTeacherActions";
 import { toggleSubMenus } from "../../store/actions/classTeacherActions";
+import { makeDisplay } from "../../src/store/actions/navbarActions"
 import { FiChevronRight, FiChevronDown } from "react-icons/fi";
 import "../../app.css";
 import Instructions from "./sections/information/Instructions";
@@ -28,12 +29,19 @@ class Dashboard extends Component {
       backgroundColorSwitch: "transparent",
     },
   };
+
+  componentDidMount () {
+    this.props.setDisplay("logged_in")
+    localStorage.setItem("isLoggedIn", "true")
+  }
+
   render() {
     const { infoBtn, stdBtn, subBtns } = this.props.classTeacher;
-    const { toggleTwo, toggleMany } = this.props;
+    const { toggleTwo, toggleMany, setDisplay } = this.props;
     const { infoType, stdType } = subBtns;
     //console.log(this.props);
     //console.log("needed", toggleTwo);
+    
     return (
       <div className="class_teacher_dashboard_container">
         <div className="left_dashboard_menu">
@@ -305,6 +313,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     toggleTwo: (btn) => dispatch(toggleMainMenus(btn)),
     toggleMany: (section) => dispatch(toggleSubMenus(section)),
+    setDisplay: (param) => dispatch(makeDisplay(param))
   };
 };
 

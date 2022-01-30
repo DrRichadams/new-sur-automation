@@ -28,6 +28,7 @@ import physicalConditionReducer from "./studentDataReducers/physicalConditionRed
 import psychometricDataReducer from "./studentDataReducers/psychometricDataReducer";
 //import togglePBBtnReducer from "./studentDataReducers/problematicBehaviourReducer"
 import generalRemarksReducer from "./studentDataReducers/generalRemarksReducer";
+import NavbarReducer from "./NavbarReducer"
 
 const rootReducer = combineReducers({
   students: studentsReducer,
@@ -62,6 +63,9 @@ const rootReducer = combineReducers({
   psychometricDataReducer,
   togglePBBtnReducer,
   generalRemarksReducer,
+  //NAV BAR DISPLAY
+  NavbarReducer,
+
 });
 
 export default rootReducer;

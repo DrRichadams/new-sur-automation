@@ -2,6 +2,16 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import "./styles/general_remarks.css";
 import { toggleEditingMode } from "../../../../store/actions/studentDataActions/generalRemarksActions";
+import db from "../../../../firebase"
+import {
+  collection,
+  onSnapshot,
+  doc,
+  setDoc,
+  getDocs,
+} from "firebase/firestore";
+import { v4 as uuidv4 } from 'uuid';
+import { upddateData } from "../../../../store/actions/studentDataActions/schoolsAttendedActions";
 
 const GeneralRemarks = ({
   exGeneralRemarks,
@@ -9,17 +19,49 @@ const GeneralRemarks = ({
   editingMode,
   triggerEditingMode,
 }) => {
-  const cerrentStudentRemarks = exGeneralRemarks.find(
+
+  const [temporaryData, settemporaryData] = useState([]);
+  const [finalizedData, setfinalizedData] = useState([]);
+
+    useEffect(() => {
+    onSnapshot(collection(db, "general_remarks"),(snapshot) => {
+            console.log("From Firebase in remarks",snapshot.docs.map((doc) => doc.data()));
+            let tempData = snapshot.docs.map((doc) => doc.data())
+            settemporaryData([
+                ...tempData
+            ])
+          }
+        );
+        
+  },[])
+
+  useEffect(() => { setfinalizedData([...temporaryData]) }, [temporaryData])
+
+  const cerrentStudentRemarks = finalizedData.find(
     (sin) => sin.std_id === selectedStudent.student_id
   );
-  console.log(editingMode);
-  const [generalRemarks, setGeneralRemarks] = useState("All remarks");
+  console.log("Remarks chunk", cerrentStudentRemarks);
+  const [generalRemarks, setGeneralRemarks] = useState({ remark: "All remarks here", std_id: selectedStudent.student_id });
 
   useEffect(() => {
-    setGeneralRemarks(cerrentStudentRemarks.remark);
-  });
+    let unm = false
+    if(!unm) {
+      cerrentStudentRemarks && setGeneralRemarks({ remark: cerrentStudentRemarks.remark })
+    }
+
+    return unm = true
+  }, [finalizedData]);
 
   //const editingMode = false;
+
+  const updateFirebase = async (cur_id, data) => {
+    const docRef = doc(db, "general_remarks", cur_id);
+    let payload = {
+      std_id: selectedStudent.student_id,
+      remark: data.remark
+    }
+    await setDoc(docRef, payload);
+  }
 
   return (
     <div className="instructions_container">
@@ -43,7 +85,10 @@ const GeneralRemarks = ({
           <div
             className="save_edited editing_controls_btns"
             style={{ display: editingMode ? "block" : "none" }}
-            onClick={() => triggerEditingMode("not_editing")}
+            onClick={() => {
+              triggerEditingMode("not_editing")
+              updateFirebase(selectedStudent.student_id, generalRemarks)
+            }}
           >
             Save changes
           </div>
@@ -56,9 +101,9 @@ const GeneralRemarks = ({
         <textarea
           disabled={!editingMode}
           onChange={(e) => {
-            setGeneralRemarks(e.target.value);
+            setGeneralRemarks({ remark: e.target.value });
           }}
-          value={generalRemarks}
+          value={generalRemarks.remark}
         ></textarea>
       </div>
     </div>

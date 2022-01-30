@@ -1,10 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom"
 import "../../app.css";
 
 const SignedInClassTeacher = (props) => {
   const { email, name, userID, userType } = props.userData;
   console.log("Nav bar data", props);
+
+  const navigate = useNavigate()
   return (
     <>
       <div className="main_logo">SUR AUTOMATION</div>
@@ -12,7 +15,9 @@ const SignedInClassTeacher = (props) => {
         <button
           className="logout_user_btn"
           onClick={() => {
-            localStorage.setItem("isLoggedIn", false);
+            localStorage.setItem("isLoggedIn", "false");
+            navigate('/')
+            window.location.reload(true)
             console.log("local storage has been set");
           }}
         >

@@ -1,15 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { connect } from "react-redux"
 import { FiPlus, FiCheckCircle } from "react-icons/fi";
 import { triggerNewStudent } from "../../../store/actions/studentBoardActions"
 import "./styles/add_new_student.css";
+import { v4 as uuidv4 } from 'uuid';
+import db from "../../../firebase"
+import {
+  collection,
+  onSnapshot,
+  doc,
+  setDoc,
+  getDocs,
+} from "firebase/firestore";
 
 const AddNewStudent = ({ viewState, sliceInstance }) => {
   const [newStudentData, setnewStudentData] = useState({
     ///////////////////////////////
-    identification: {
-      std_id: "",
+      std_id: uuidv4().toString(),
       name: "",
       other: "",
       surname: "",
@@ -30,146 +38,253 @@ const AddNewStudent = ({ viewState, sliceInstance }) => {
         day: "",
         year: "",
       },
-    },
-    ////////////////////////////
-    schools_attended: {
-      std_id: "",
-      exemption_from_compulsory_education: false,
-      date: {
-        month: "",
-        day: "",
-        year: "",
-      },
-      age_on_initial_entry_to_school: "",
-      schools_details: [
-        {
-          id: "",
-          admission_no: "",
-          name_of_school: "",
-          medium: null,
-          date_of_admission: "",
-          grade_of_admission: "",
-          date_of_departure: "",
-          grade_of_departure: "",
-        },
-      ],
-    },
-    ///////////////////////////
-    physical_condition: {
-      std_id: "",
-      conditions: [
-        {
-          id: "",
-          date: "",
-          general_health: "",
-          problem: "",
-          current_solution: "",
-          previous_illness: "",
-        },
-      ],
-    },
-    ///////////////////////////
-    psychometric_data: {
-      std_id: "",
-      psychData: [
-        {
-          id: "",
-          date: "",
-          name_of_test: "",
-          grade: "",
-          tester: "",
-          remarks: "",
-        },
-      ],
-    },
-    ///////////////////////////
-    learning_disabilities: {
-      std_id: "",
-      nature: "",
-      action_taken: "",
-      results: "",
-    },
-    ///////////////////////////
-    problematic_behaviour: {
-      std_id: "",
-      nature_of_offence: "",
-      action_taken: "",
-      results: "",
-    },
-    ///////////////////////////
-    observation_report: {
-      std_id: "",
-      psychological: [
-        {
-          id: "",
-          grade: "",
-          year: "",
-          report: "",
-        },
-      ],
-      social: [
-        {
-          id: "",
-          grade: "",
-          year: "",
-          report: "",
-        },
-      ],
-      overall_impression: [
-        {
-          id: "",
-          grade: "",
-          year: "",
-          report: "",
-        },
-      ],
-    },
-    ///////////////////////////
-    scholastic_achievements: {
-        std_id: "",
-        primary: {
-            year_and_month: { c1: "", c2: "", c3: "", c4: "", c5: "", c6: "", c7: "", c8: "", c9: "", c10: "", c11: "" },
-            grade: { c1: "", c2: "", c3: "", c4: "", c5: "", c6: "", c7: "", c8: "", c9: "", c10: "", c11: "" },
-            level: { c1: "", c2: "", c3: "", c4: "", c5: "", c6: "", c7: "", c8: "", c9: "", c10: "", c11: "" },
-            english_home: { c1: "", c2: "", c3: "", c4: "", c5: "", c6: "", c7: "", c8: "", c9: "", c10: "", c11: "" },
-            average_symbol_learner: { c1: "", c2: "", c3: "", c4: "", c5: "", c6: "", c7: "", c8: "", c9: "", c10: "", c11: "" },
-            average_symbol_grade: { c1: "", c2: "", c3: "", c4: "", c5: "", c6: "", c7: "", c8: "", c9: "", c10: "", c11: "" },
-            pass_fail: { c1: "", c2: "", c3: "", c4: "", c5: "", c6: "", c7: "", c8: "", c9: "", c10: "", c11: "" },
-            attendance: { c1: "", c2: "", c3: "", c4: "", c5: "", c6: "", c7: "", c8: "", c9: "", c10: "", c11: "" },
-            /**********************SUBJECTS BELOW */
-            subjects: [
-                {
-                    id: "",
-                    name: "",
-                    cols: { c1: "", c2: "", c3: "", c4: "", c5: "", c6: "", c7: "", c8: "", c9: "", c10: "", c11: "" }
-                }
-            ]
-        },
-        secondary: {
-            year_and_month: { c1: "", c2: "", c3: "", c4: "", c5: "", c6: "", c7: "", c8: "", c9: "", c10: "", c11: "" },
-            grade: { c1: "", c2: "", c3: "", c4: "", c5: "", c6: "", c7: "", c8: "", c9: "", c10: "", c11: "" },
-            level: { c1: "", c2: "", c3: "", c4: "", c5: "", c6: "", c7: "", c8: "", c9: "", c10: "", c11: "" },
-            english_home: { c1: "", c2: "", c3: "", c4: "", c5: "", c6: "", c7: "", c8: "", c9: "", c10: "", c11: "" },
-            average_symbol_learner: { c1: "", c2: "", c3: "", c4: "", c5: "", c6: "", c7: "", c8: "", c9: "", c10: "", c11: "" },
-            average_symbol_grade: { c1: "", c2: "", c3: "", c4: "", c5: "", c6: "", c7: "", c8: "", c9: "", c10: "", c11: "" },
-            pass_fail: { c1: "", c2: "", c3: "", c4: "", c5: "", c6: "", c7: "", c8: "", c9: "", c10: "", c11: "" },
-            attendance: { c1: "", c2: "", c3: "", c4: "", c5: "", c6: "", c7: "", c8: "", c9: "", c10: "", c11: "" },
-            /**********************SUBJECTS BELOW */
-            subjects: [
-                {
-                    id: "",
-                    name: "",
-                    cols: { c1: "", c2: "", c3: "", c4: "", c5: "", c6: "", c7: "", c8: "", c9: "", c10: "", c11: "" }
-                }
-            ]
-        }
-    },
-    ///////////////////////////
-    general_information: {},
-    ///////////////////////////
-    general_remarks: {},
-    ///////////////////////////
+   
   });
+
+  const settingNewNameData = (e) => {
+    setnewStudentData({
+      ...newStudentData,
+        name: e.target.value
+    })
+  }
+
+  const settingNewOtherData = (e) => {
+    setnewStudentData({
+      ...newStudentData,
+        other: e.target.value
+    })
+  }
+
+  const settingNewSurnameData = (e) => {
+    setnewStudentData({
+      ...newStudentData,
+        surname: e.target.value
+    })
+  }
+
+  const settingNewGenderData = (e) => {
+    setnewStudentData({
+      ...newStudentData,
+        gender: e.target.value
+    })
+  }
+
+  useEffect(() => console.log(newStudentData),[newStudentData])
+
+  const [genderError, setgenderError] = useState({
+    message: null,
+  });
+
+  // const addNew = async () => {
+  //   const docRef = doc(db, "identification", newStudentData.std_id);
+  //   const payload = {...newStudentData};
+  //   await setDoc(docRef, payload);
+  // };
+
+
+  //////////////////////////////////////////////////////////
+  /**                  DATABASE TEMPLATING                 */
+  //////////////////////////////////////////////////////////
+
+  const ship_schools_attended = {
+    std_id: newStudentData.std_id,
+    exemption_from_compulsory_education: false,
+    date: {
+      month: "",
+      day: "",
+      year: "",
+    },
+    age_on_initial_entry_to_school: "",
+    schools_details: [
+      {
+        id: uuidv4(),
+        admission_no: "",
+        name_of_school: "",
+        medium: null,
+        date_of_admission: "",
+        grade_of_admission: "8",
+        date_of_departure: "",
+        grade_of_departure: "",
+      },
+      {
+        id: uuidv4(),
+        admission_no: "",
+        name_of_school: "",
+        medium: null,
+        date_of_admission: "",
+        grade_of_admission: "",
+        date_of_departure: "",
+        grade_of_departure: "", 
+      },
+    {
+        id: uuidv4(),
+        admission_no: "",
+        name_of_school: "",
+        medium: null,
+        date_of_admission: "",
+        grade_of_admission: "",
+        date_of_departure: "",
+        grade_of_departure: "",
+      },
+    ],
+  }
+
+  const ship_physical_condition = {
+    std_id: newStudentData.std_id,
+    conditions: [
+      {
+        id: uuidv4(),
+        date: "",
+        general_health: "",
+        problem: "",
+        current_solution: "",
+        previous_illness: "",
+      },
+      {
+        id: uuidv4(),
+        date: "",
+        general_health: "",
+        problem: "",
+        current_solution: "",
+        previous_illness: "",
+      },
+    ],
+  }
+
+  const ship_psychometric_data = {
+    std_id: newStudentData.std_id,
+    psychData: [
+      {
+        id: uuidv4(),
+        date: "",
+        name_of_test: "",
+        grade: "",
+        tester: "",
+        remarks: "",
+      },
+      {
+        id: uuidv4(),
+        date: "",
+        name_of_test: "",
+        grade: "",
+        tester: "",
+        remarks: "",
+      },
+    ],
+  }
+
+  const ship_learning_disabilities = {
+    std_id: newStudentData.std_id,
+    nature: "",
+    action_taken: "",
+    results: "",
+  }
+
+  const ship_problematic_behaviour = {
+    std_id: newStudentData.std_id,
+    nature_of_offence: "",
+    action_taken: "",
+    results: "",
+  }
+
+  const ship_observation_report = {
+    std_id: newStudentData.std_id,
+    psychological: [
+      {
+        id: uuidv4(),
+        grade: "",
+        year: "",
+        report: "",
+      },
+    ],
+    social: [
+      {
+        id: uuidv4(),
+        grade: "",
+        year: "",
+        report: "",
+      },
+    ],
+    overall_impression: [
+      {
+        id: uuidv4(),
+        grade: "",
+        year: "",
+        report: "",
+      },
+    ],
+  }
+
+  const ship_general_information = {
+    std_id: newStudentData.std_id,
+    outstanding_aptitudes_interests: {
+      aptitudes: "",
+      interests: "",
+    },
+    outstanding_achievements_attained: {
+      academic: "",
+      extra_curricular:
+        "",
+    },
+    vocational_choice: {
+      careers_chosen_by_learner: "",
+      careers_chosen_by_parents: "",
+      counsellors_recommendations: "",
+      broad_vocational_field: "",
+      specific_careers: "",
+    },
+  }
+
+  const ship_general_remarks = {
+    std_id: newStudentData.std_id,
+    remark: "",
+  }
+
+
+  //////////////////////////////////////////////////////////
+  /**                  DATABASE TEMPLATING                 */
+  //////////////////////////////////////////////////////////
+
+  const sendToDatabase = async () => {
+    if(newStudentData.gender === "" || newStudentData.gender === "Gender") {
+      setgenderError({
+        message: "Please select gender to continue"
+      })
+    } else {
+      setgenderError({
+        message: null
+      })
+      ///////////////////////////////
+      
+      ////////////////////////REFS///////////////////
+      const docRefIdentification = doc(db, "identification", newStudentData.std_id);
+      const docRefSchools_Attended = doc(db, "schools_attended", newStudentData.std_id);
+      const docRefPhysicalCondition = doc(db, "physical_condition", newStudentData.std_id);
+      const docRefPsychometricData = doc(db, "psychometric_data", newStudentData.std_id);
+      const docRefLearningDisabilities = doc(db, "learning_disabilities", newStudentData.std_id);
+      const docRefProblematicBehaviour = doc(db, "problematic_behaviour", newStudentData.std_id);
+      const docRefObservationReport = doc(db, "observation_report", newStudentData.std_id);
+      const docRefScholasticsAchievements = doc(db, "scholastic_achievements", newStudentData.std_id);
+      const docRefGeneralInformation = doc(db, "general_information", newStudentData.std_id);
+      const docRefGeneralRemarks = doc(db, "general_remarks", newStudentData.std_id);
+      ////////////////////////REFS///////////////////
+      const payload = {...newStudentData};
+      await setDoc(docRefIdentification, newStudentData);
+      await setDoc(docRefSchools_Attended, ship_schools_attended);
+      await setDoc(docRefPhysicalCondition, ship_physical_condition);
+      await setDoc(docRefPsychometricData, ship_psychometric_data);
+      await setDoc(docRefLearningDisabilities, ship_learning_disabilities);
+      await setDoc(docRefProblematicBehaviour, ship_problematic_behaviour);
+      await setDoc(docRefObservationReport, ship_observation_report);
+      await setDoc(docRefScholasticsAchievements, ship_general_remarks); ///TEMPORARY DATA
+      await setDoc(docRefGeneralInformation, ship_general_information);
+      await setDoc(docRefGeneralRemarks, ship_general_remarks);
+      ///////////////////////////////
+      alert("Student added successfully")
+      window.location.reload(true)
+    }
+  }
+
   return ReactDOM.createPortal(
     <div className="add_new_student" style={{ display: viewState ? "flex": "none" }}>
       <div
@@ -183,21 +298,22 @@ const AddNewStudent = ({ viewState, sliceInstance }) => {
           <FiPlus />
         </div>
         <h2 className="add_new_student_title">New Student</h2>
-        <form className="add_new_student_form">
+        <form className="add_new_student_form" onSubmit={(e) => e.preventDefault()}> 
           <div className="inputBox">
-            <input type="text" required="required" />
+            <input type="text" required="required" id="name" onChange={(e) => settingNewNameData(e)} value={newStudentData.name} />
             <span>Firstname</span>
           </div>
           <div className="inputBox">
-            <input type="text" required="required" />
+            <input type="text" id="other" onChange={(e) => settingNewOtherData(e)} value={newStudentData.other} />
             <span>Other names</span>
           </div>
           <div className="inputBox">
-            <input type="text" required="required" />
+            <input type="text" required="required" id="surname" onChange={(e) => settingNewSurnameData(e)} value={newStudentData.surname} />
             <span>Lastname</span>
           </div>
           <div className="inputBox">
-            <select name="gender" id="gender">
+            <div className="gender_error_messa">{ genderError.message }</div>
+            <select name="gender" id="gender" onChange={(e) => settingNewGenderData(e)} value={newStudentData.gender}>
               <option value="male">Gender</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
@@ -208,6 +324,7 @@ const AddNewStudent = ({ viewState, sliceInstance }) => {
               type="submit"
               value="Add student"
               className="add_student_btn"
+              onClick={() => sendToDatabase()}
             />
           </div>
         </form>

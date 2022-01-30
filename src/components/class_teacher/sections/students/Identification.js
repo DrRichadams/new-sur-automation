@@ -5,6 +5,15 @@ import {
   addIdentificationDataToFirestore,
 } from "../../../../store/actions/studentDataActions/identificationActions";
 import "./styles/identification.css";
+import db from "../../../../firebase"
+import {
+  collection,
+  onSnapshot,
+  doc,
+  setDoc,
+  getDocs,
+} from "firebase/firestore";
+import { v4 as uuidv4 } from 'uuid';
 
 const Identification = ({
   exIdentificationData,
@@ -13,15 +22,47 @@ const Identification = ({
   toggleEditingMode,
   sendToFirestore,
 }) => {
+
+  /////////////////////////////////////////////////////////
+  /**             FIREBASE HANDLER                       */
+  /////////////////////////////////////////////////////////
+
+  const [temporaryData, settemporaryData] = useState([]);
+  const [finalizedData, setfinalizedData] = useState([]);
+
+    useEffect(() => {
+      onSnapshot(collection(db, "identification"),(snapshot) => {
+              console.log("From Firebase",snapshot.docs.map((doc) => doc.data()));
+              let tempData = snapshot.docs.map((doc) => doc.data())
+                settemporaryData([
+                  ...tempData
+              ])
+              }
+          );
+
+          
+    },[])
+
+    useEffect(() => {
+      setfinalizedData([
+        ...temporaryData
+      ])
+      console.log("We did it", temporaryData ,finalizedData)
+    }, [temporaryData])
+
+  /////////////////////////////////////////////////////////
+  /**             FIREBASE HANDLER                       */
+  /////////////////////////////////////////////////////////
+
   const { editingMode } = identificationReducer;
   console.log("Testing store retrival", toggleEditingMode);
-  const userCurrentData = exIdentificationData.find(
+  const userCurrentData = finalizedData.find(
     (sin) => sin.std_id === selectedStudent.student_id
   );
 
   useEffect(() => {
     ///SETTING PERSONAL DETAILS DATA //////////////
-    setPersonalDetails({
+    userCurrentData && setPersonalDetails({
       firstname: userCurrentData.name,
       othername: userCurrentData.other,
       surname: userCurrentData.surname,
@@ -36,30 +77,30 @@ const Identification = ({
 
     ///SEETTING OCCUPATIONAL DATA ////////////////
 
-    setOccupationOfParents({
+    userCurrentData && setOccupationOfParents({
       father: userCurrentData.occupation_of_guardian,
       mother: userCurrentData.occupation_of_mother,
       name_of_father: userCurrentData.name_of_guardian,
       name_of_mother: userCurrentData.name_of_mother,
     });
     ///SETTING ADDRESSES INFORMATION///////////////
-    setContactAddresses({
+    userCurrentData && setContactAddresses({
       residential_address: userCurrentData.residential_address,
       postal_address: userCurrentData.postal_address,
       home_phone: userCurrentData.home_phone,
       business_phone: userCurrentData.business_phone,
     });
     ///SETTING CULTURE DATA///////////////////////
-    setCulture({
+    userCurrentData && setCulture({
       ///////////////////////////
       church: userCurrentData.church,
       home_language: userCurrentData.home_language,
       ///////////////////////////
     });
-  }, []);
+  }, [finalizedData]);
 
   const [personalDetails, setPersonalDetails] = useState({
-    firstname: "Richard",
+    firstname: "",
     othername: null,
     surname: null,
     identity_no: null,
@@ -77,7 +118,7 @@ const Identification = ({
     name_of_mother: null,
   });
   const [contactAddresses, setContactAddresses] = useState({
-    residential_address: "1703 kuwadzana 1",
+    residential_address: "",
     postal_address: null,
     home_phone: null,
     business_phone: null,
@@ -87,7 +128,34 @@ const Identification = ({
     home_language: null,
   });
 
-  //const editingMode = false;
+
+  const updateFirestoreData = async (cur_id) => {
+    const docRef = doc(db, "identification", cur_id);
+    let payload = {
+      std_id: selectedStudent.student_id,
+      name: personalDetails.firstname,
+      other: personalDetails.othername,
+      surname: personalDetails.surname,
+      identity_number: personalDetails.identity_no,
+      residential_address: "",
+      postal_address: "", 
+      gender: personalDetails.gender,
+      name_of_guardian: "",
+      name_of_mother: "",
+      occupation_of_guardian: "",
+      occupation_of_mother: "",
+      home_phone: "",
+      business_phone: "",
+      church: "",
+      home_language: "",
+      dob: {
+        month: personalDetails.dob.month,
+        day: personalDetails.dob.day,
+        year: personalDetails.dob.year,
+      },
+    }
+    await setDoc(docRef, payload);
+  }
 
   return (
     <div className="instructions_container">
@@ -113,12 +181,7 @@ const Identification = ({
             style={{ display: editingMode ? "block" : "none" }}
             onClick={() => {
               toggleEditingMode("not_editing");
-              sendToFirestore({
-                personalDetails,
-                occupationOfParents,
-                contactAddresses,
-                culture,
-              });
+              updateFirestoreData(selectedStudent.student_id);
               console.log("sending function triggered");
             }}
           >

@@ -3,6 +3,15 @@ import { connect } from "react-redux";
 import "./styles/physical_condition.css";
 import { FiPlus } from "react-icons/fi";
 import { toggleEditingMode } from "../../../../store/actions/studentDataActions/physicalConditionActions";
+import db from "../../../../firebase"
+import {
+  collection,
+  onSnapshot,
+  doc,
+  setDoc,
+  getDocs,
+} from "firebase/firestore";
+import { v4 as uuidv4 } from 'uuid';
 
 const PhysicalCondition = ({
   physicalConditionData,
@@ -12,32 +21,52 @@ const PhysicalCondition = ({
 }) => {
   //const editingMode = false;
 
-  const current_student = physicalConditionData.find(
+  const [temporaryData, settemporaryData] = useState([]);
+  const [finalizedData, setfinalizedData] = useState([]);
+
+  useEffect(() => {
+    onSnapshot(collection(db, "physical_condition"),(snapshot) => {
+            console.log("From Firebase",snapshot.docs.map((doc) => doc.data()));
+            let tempData = snapshot.docs.map((doc) => doc.data())
+            settemporaryData([
+                ...tempData
+            ])
+          }
+        );
+        
+  },[])
+
+  useEffect(() => {
+    setfinalizedData([ ...temporaryData ])
+  }, [temporaryData])
+
+  useEffect(() => { console.log("My finalized data:" ,finalizedData) }, [finalizedData])
+
+  const current_student = finalizedData.find(
     (sin) => sin.std_id === selectedStudent.student_id
   );
+  console.log("My filtered data:" ,current_student)
   const { editingMode } = physicalConditionReducer;
   console.log("phy data", editingMode);
 
   const [physicalInfo, setPhysicalInfo] = useState([
     {
+      id: null,
       date: null,
       general_health: null,
       problem: null,
-      how_problem: null,
+      current_solution: null,
       previous_illness: null,
     },
   ]);
 
   useEffect(() => {
-    setPhysicalInfo([
-      ...current_student.conditions,
-      // date: current_student.date,
-      // general_health: current_student.general_health,
-      // problem: current_student.problem,
-      // how_problem: current_student.current_solution,
-      // previous_illness: current_student.previous_illness,
+    current_student && setPhysicalInfo([
+      ...current_student.conditions
     ]);
-  }, []);
+  }, [finalizedData]);
+
+  useEffect(() => { console.log("My physic", physicalInfo) }, [physicalInfo])
 
   const styles = {
     selected: { display: "block" },
@@ -129,7 +158,7 @@ const PhysicalCondition = ({
                     how_problem: e.target.value,
                   })
                 }
-                value={cond.how_problem}
+                value={cond.current_solution}
               />
               <input
                 type="text"

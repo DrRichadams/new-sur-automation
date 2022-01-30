@@ -5,65 +5,123 @@ import {
   switchbtn,
   toggleEditingMode,
 } from "../../../../store/actions/studentDataActions/generalInformationActions";
+import db from "../../../../firebase"
+import {
+  collection,
+  onSnapshot,
+  doc,
+  setDoc,
+  getDocs,
+} from "firebase/firestore";
+import { v4 as uuidv4 } from 'uuid';
 
 const GeneralInformation = (props) => {
+
+  const [temporaryData, settemporaryData] = useState([]);
+  const [finalizedData, setfinalizedData] = useState([]);
+
+    useEffect(() => {
+    onSnapshot(collection(db, "general_information"),(snapshot) => {
+            console.log("From Firebase in remarks",snapshot.docs.map((doc) => doc.data()));
+            let tempData = snapshot.docs.map((doc) => doc.data())
+            settemporaryData([
+                ...tempData
+            ])
+          }
+        );
+        
+  },[])
+
+  useEffect(() => { setfinalizedData([...temporaryData]) }, [temporaryData])
+
   const { oap, oac, voca } = props.giBtns;
   const { switchbtnFun, toggleEditing } = props;
 
-  const exGeneralInfo = props.exGeneralInfo;
+  //const exGeneralInfo = props.exGeneralInfo;
   const { student_id } = props.selectedStudent;
-  const currentStudentData = exGeneralInfo.find(
+  const currentStudentData = finalizedData.find(
     (sin) => sin.std_id === student_id
   );
   const { editingMode } = props.editMode;
-  console.table(editingMode);
+  console.log("Info", currentStudentData);
 
   //const editingMode = false;
 
   const [generalInfo, setGeneralInfo] = useState({
+    std_id: student_id,
     outstanding_aptitudes: {
-      aptitudes: null,
-      interests: null,
+      aptitudes: "",
+      interests: "",
     },
     outstanding_achievements: {
-      academic: null,
-      extra_curricula: null,
+      academic: "",
+      extra_curricula: "",
     },
     vocational_choice: {
-      careers_chosen_by_learner: null,
-      careers_chosen_by_parents: null,
-      counsellor_recommendations: null,
-      broad_vocational_field: null,
-      specific_careers: null,
+      careers_chosen_by_learner: "",
+      careers_chosen_by_parents: "",
+      counsellor_recommendations: "",
+      broad_vocational_field: "",
+      specific_careers: "",
     },
   });
 
-  useEffect(() => {
-    setGeneralInfo({
-      /////////////////////////
+  // useEffect(() => {
+  //   let unmo = false
+  //     ///////////////////////////////////////
+  //       if(!unmo) {
+  //         currentStudentData && setGeneralInfo({
+  //           /////////////////////////
+  //           outstanding_aptitudes: {
+  //             aptitudes: currentStudentData.outstanding_aptitudes_interests.aptitudes,
+  //             interests: currentStudentData.outstanding_aptitudes_interests.interests,
+  //           },
+  //           outstanding_achievements: {
+  //             academic: currentStudentData.outstanding_achievements_attained.academic,
+  //             extra_curricula:
+  //               currentStudentData.outstanding_achievements_attained.extra_curricular,
+  //           },
+  //           vocational_choice: {
+  //             careers_chosen_by_learner:
+  //               currentStudentData.vocational_choice.careers_chosen_by_learner,
+  //             careers_chosen_by_parents:
+  //               currentStudentData.vocational_choice.careers_chosen_by_parents,
+  //             counsellor_recommendations:
+  //               currentStudentData.vocational_choice.counsellors_recommendations,
+  //             broad_vocational_field:
+  //               currentStudentData.vocational_choice.broad_vocational_field,
+  //             specific_careers: currentStudentData.vocational_choice.specific_careers,
+  //           },
+  //           /////////////////////////
+  //         });
+  //       }
+  //     ///////////////////////////////////////
+  //   return () => unmo = true
+  // }, [finalizedData]);
+
+  const updateFirebase = async (cur_id, data) => {
+    const docRef = doc(db, "general_information", cur_id);
+    let payload = {
+      std_id: student_id,
       outstanding_aptitudes: {
-        aptitudes: currentStudentData.outstanding_aptitudes_interests.aptitudes,
-        interests: currentStudentData.outstanding_aptitudes_interests.interests,
+        aptitudes: generalInfo.outstanding_aptitudes.aptitudes,
+        interests: generalInfo.outstanding_aptitudes.interests,
       },
       outstanding_achievements: {
-        academic: currentStudentData.outstanding_achievements_attained.academic,
-        extra_curricula:
-          currentStudentData.outstanding_achievements_attained.extra_curricular,
+        academic: generalInfo.outstanding_achievements.academic,
+        extra_curricula: generalInfo.outstanding_achievements.extra_curricula,
       },
       vocational_choice: {
-        careers_chosen_by_learner:
-          currentStudentData.vocational_choice.careers_chosen_by_learner,
-        careers_chosen_by_parents:
-          currentStudentData.vocational_choice.careers_chosen_by_parents,
-        counsellor_recommendations:
-          currentStudentData.vocational_choice.counsellors_recommendations,
-        broad_vocational_field:
-          currentStudentData.vocational_choice.broad_vocational_field,
-        specific_careers: currentStudentData.vocational_choice.specific_careers,
+        careers_chosen_by_learner: generalInfo.vocational_choice.careers_chosen_by_learner,
+        careers_chosen_by_parents: generalInfo.vocational_choice.careers_chosen_by_parents,
+        counsellor_recommendations: generalInfo.vocational_choice.counsellor_recommendations,
+        broad_vocational_field: generalInfo.vocational_choice.broad_vocational_field,
+        specific_careers: generalInfo.vocational_choice.specific_careers,
       },
-      /////////////////////////
-    });
-  }, []);
+    }
+    finalizedData && await setDoc(docRef, payload);
+  }
+  //console.log("testing data", generalInfo.vocational_choice.careers_chosen_by_learner)
 
   return (
     <div className="instructions_container">
@@ -87,7 +145,10 @@ const GeneralInformation = (props) => {
           <div
             className="save_edited editing_controls_btns"
             style={{ display: editingMode ? "block" : "none" }}
-            onClick={() => toggleEditing("not_editing")}
+            onClick={() => {
+                updateFirebase(student_id, generalInfo)
+                toggleEditing("not_editing")
+            }}
           >
             Save changes
           </div>

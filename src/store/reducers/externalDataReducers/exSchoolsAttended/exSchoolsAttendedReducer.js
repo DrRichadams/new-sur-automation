@@ -8,8 +8,8 @@ const studentsSchoolsAttended = [
       year: "98",
     },
     age_on_initial_entry_to_school: "9",
-    schools_details: {
-      "a1": {
+    schools_details: [
+      {
         id: "a1",
         admission_no: "11224",
         name_of_school: "St Georges",
@@ -19,7 +19,7 @@ const studentsSchoolsAttended = [
         date_of_departure: "11/12/2009",
         grade_of_departure: "7",
       },
-      "a2": {
+      {
         id: "a2",
         admission_no: "11223",
         name_of_school: "Windhoek High",
@@ -29,7 +29,7 @@ const studentsSchoolsAttended = [
         date_of_departure: "28/08/2010",
         grade_of_departure: "9", 
       },
-      "a3":{
+    {
         id: "a3",
         admission_no: "11222",
         name_of_school: "DHPS",
@@ -39,7 +39,7 @@ const studentsSchoolsAttended = [
         date_of_departure: "12/11/2014",
         grade_of_departure: "12",
       },
-  },
+    ],
   },
 
   {
@@ -51,8 +51,8 @@ const studentsSchoolsAttended = [
       year: "98",
     },
     age_on_initial_entry_to_school: "9",
-    schools_details: {
-      "a1":{
+    schools_details: [
+      {
         id: "a1",
         admission_no: "ab",
         name_of_school: "Amazing kids",
@@ -62,7 +62,7 @@ const studentsSchoolsAttended = [
         date_of_departure: "11/12/2009",
         grade_of_departure: "7",
       },
-      "a2":{
+      {
         id: "a2",
         admission_no: "ac",
         name_of_school: "Windhoek High",
@@ -72,7 +72,7 @@ const studentsSchoolsAttended = [
         date_of_departure: "28/08/2010",
         grade_of_departure: "9",
       },
-      "a3":{
+      {
         id: "a3",
         admission_no: "ad",
         name_of_school: "DHPS",
@@ -82,7 +82,7 @@ const studentsSchoolsAttended = [
         date_of_departure: "12/11/2014",
         grade_of_departure: "12",
       },
-  },
+    ],
   },
 
   {
@@ -94,8 +94,8 @@ const studentsSchoolsAttended = [
       year: "98",
     },
     age_on_initial_entry_to_school: "9",
-    schools_details: {
-      "a1":{
+    schools_details: [
+      {
         id: "a1",
         admission_no: "fg",
         name_of_school: "Amazing kids",
@@ -105,7 +105,7 @@ const studentsSchoolsAttended = [
         date_of_departure: "11/12/2009",
         grade_of_departure: "7",
       },
-      "a2":{
+      {
         id: "a2",
         admission_no: "fh",
         name_of_school: "Windhoek High",
@@ -115,7 +115,7 @@ const studentsSchoolsAttended = [
         date_of_departure: "28/08/2010",
         grade_of_departure: "9",
       },
-      "a3":{
+      {
         id: "a3",
         admission_no: "fj",
         name_of_school: "DHPS",
@@ -125,12 +125,20 @@ const studentsSchoolsAttended = [
         date_of_departure: "12/11/2014",
         grade_of_departure: "12",
       },
-  },
+    ],
   },
 ];
 
 const exSchoolsAttendedReducer = (state = studentsSchoolsAttended, action) => {
-  return state;
+  switch(action.type) {
+    case "UPDATE_DATA":
+      console.log("Data has been set", action)
+      return [
+        ...action.payload
+      ]
+    default:
+      return state
+  }
 };
 
 export default exSchoolsAttendedReducer;

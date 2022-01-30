@@ -1,0 +1,233 @@
+
+.create_account_container {
+    width: 100%;
+    height: 100vh;
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.create_account_main_box{
+    background-color: #fff;
+    padding: 20px;
+    width: 400px;
+    height: 80vh;
+    border-radius: 20px;
+    position: relative;
+}
+
+.create_account_main_title{
+    text-transform: uppercase;
+}
+
+.create_details_main_form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.create_details_main_form input{
+    border: none;
+    outline: none;
+    background-color: rgba(36, 40, 80, 0.699);
+    color: #fff;
+    margin-bottom: 12px;
+    padding: 8px 12px;
+    width: 350px;
+    border-radius: 5px;
+}
+
+.create_details_main_form select{
+    border: none;
+    outline: none;
+    background-color: rgba(36, 40, 80, 0.699);
+    color: #fff;
+    margin-bottom: 12px;
+    padding: 8px 12px;
+    width: 350px;
+    border-radius: 5px;
+}
+
+.create_details_main_form option{
+    background-color: rgb(36, 40, 80);
+}
+
+.create_details_btns{
+    margin: 5px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 350px;
+}
+
+.aprove_create{
+    width: 120px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(31, 172, 43);
+    color: #fff;
+    padding: 8px 5px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.aprove_create:hover {
+    background-color: rgb(11, 100, 19);
+    letter-spacing: 2px;
+}
+
+.cancel_create{
+    cursor: pointer;
+    color: orangered;
+    transition: 0.5s;
+}
+
+.cancel_create:hover{
+    color: rgb(36, 40, 80);
+    transform: translateX(-5px);
+}
+
+.create_email,
+.class_select,
+.gender_select {
+    margin-bottom: 25px !important;
+}
+
+.no_input_message{
+    color: rgb(36, 40, 80);
+    font-size: 12px;
+    color: orangered;
+    margin-bottom: 4px;
+    margin-left: 5px;
+    align-self: flex-start;
+}
+
+.create_details_container{
+    position: relative;
+}
+
+.error_box_container{
+    background-color: #fff;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+}
+
+.error_box_warning{
+    background-color: #88d0da;
+    color: #111;
+    padding: 12px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 6px;
+    margin: 30px 0;
+}
+
+.error_box_try_again_btn{
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: none;
+    outline: none;
+    background-color: orangered;
+    color: #fff;
+    padding: 15px 12px;
+    width: 300px;
+    cursor: pointer;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chev_left,
+.chev_right {
+    position: absolute;
+}
+
+.chev_left {
+    left: 5px;
+   transform: translateX(-30px);
+}
+
+.chev_right {
+    right: 5px;
+    transform: translateX(30px);
+}
+
+.error_box_try_again_btn:hover {
+    background-color: rgb(78, 28, 10);
+    letter-spacing: 2px;
+}
+
+.error_box_try_again_btn:hover .chev_right,
+.error_box_try_again_btn:hover .chev_left {
+    transform: translateX(0);
+}
+
+.success_icon{
+    color: rgb(27, 170, 27);
+    transform: translateX(-50%);
+    position: relative;
+    left: 50%;
+    margin-bottom: 50px;
+}
+
+.congrats_msg{
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.main_success_msg{
+    text-transform: uppercase;
+    font-size: 20px;
+    margin: 5px 0;
+}
+
+.password_warning{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding: 5px;
+    background-color: rgba(70, 180, 70, 0.678);
+    color: #fff;
+    border-radius: 6px;
+}
+
+.psg_wrn_title{
+    font-size: 12px;
+    margin-left: 8px;
+}
+
+.return_to_login{
+    margin-top: 50px;
+    border: none;
+    outline: none;
+    padding: 8px 12px;
+    background-color: rgb(36, 40, 80);
+    color: #fff;
+    width: 100%;
+    border-radius: 6px;
+    transition: 0.5s;
+    text-transform: uppercase;
+}
+
+.return_to_login:hover {
+    background-color: rgb(140, 144, 187);
+    color: rgb(0, 0, 0);
+    letter-spacing: 2px;
+}

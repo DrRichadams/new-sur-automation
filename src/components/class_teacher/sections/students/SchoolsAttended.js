@@ -3,6 +3,17 @@ import { connect } from "react-redux";
 import "./styles/schools_attended.css";
 import { FiPlus } from "react-icons/fi";
 import { toggleEditing } from "../../../../store/actions/studentDataActions/schoolsAttendedActions";
+import db from "../../../../firebase"
+import {
+  collection,
+  onSnapshot,
+  doc,
+  setDoc,
+  getDocs,
+} from "firebase/firestore";
+import { v4 as uuidv4 } from 'uuid';
+
+
 
 const SchoolsAttended = ({
   schoolsAttendedData,
@@ -10,9 +21,65 @@ const SchoolsAttended = ({
   editingModeValue,
   shiftEditingMode,
 }) => {
+
+  ///////////////////////////////////////////////////////////////
+  const [fromData, setfromData] = useState([]);
+  
+  useEffect(() => {
+    
+    let unmounted = false
+    
+      onSnapshot(collection(db, "schools_attended"),(snapshot) => {
+            console.log("From Firebase",snapshot.docs.map((doc) => doc.data()));
+            let tempData = snapshot.docs.map((doc) => doc.data())
+            if(!unmounted) {
+            setfromData([
+                ...tempData
+            ])
+            }
+          }
+        )
+
+        return () => unmounted = true
+        
+  },[])
+
+  useEffect(() => { console.log("From data now", fromData) }, [fromData])
+
+  // useEffect(() => {
+  //   console.log("From data here", fromData)
+  //   const curFromData = fromData.find(sin => sin.std_id === selectedStudent.student_id);
+  //   console.log("From data filtered", curFromData)
+
+  //   selectedStudent.student_id &&
+  //       setLeavingInfo({
+  //         //...leavingInfo,
+  //         std_id: curFromData.std_id,
+  //         compulsory: {
+  //           exempted: curFromData.compulsory.exempted,
+  //           date: {
+  //             month: curFromData.compulsory.date.month,
+  //             day: curFromData.compulsory.date.day,
+  //             year: curFromData.compulsory.date.year,
+  //           },
+  //         },
+  //         schoolsLeft: [...curFromData.schoolsLeft],
+  //         ageOnInitial: curFromData.ageOnInitial,
+  //       });
+  //     toggleChoice();
+  //     //studentSchools.exemption_from_compulsory_education ? "yes" : "no"
+  // }, [fromData])
+
+  const updateSchoolsAttendedFirebase = async(cur_id, payload) => {
+    const docRef = doc(db, "schools_attended", cur_id);
+    await setDoc(docRef, payload);
+    alert("Data updated successfully")
+  }
+  ///////////////////////////////////////////////////////////////
   const studentSchools = schoolsAttendedData.find(
     (sin) => sin.std_id === selectedStudent.student_id
   );
+  
 
   const [exemptChoice, setExemptChoice] = useState({
     yes: false,
@@ -56,6 +123,7 @@ const SchoolsAttended = ({
   };
 
   const [leavingInfo, setLeavingInfo] = useState({
+    std_id: null,
     compulsory: {
       exempted: null,
       date: {
@@ -65,92 +133,173 @@ const SchoolsAttended = ({
       },
     },
     ageOnInitial: null,
-    schoolsLeft: {},
+    schoolsLeft: [
+      {
+        id: null,
+        admission_no: null,
+        name_of_school: null,
+        medium: null,
+        date_of_admission: null,
+        grade_of_admission: null,
+        date_of_departure: null,
+        grade_of_departure: null,
+      },
+    ],
   });
 
+  // useEffect(() => {
+  //   selectedStudent.student_id &&
+  //     setLeavingInfo({
+  //       //...leavingInfo,
+  //       std_id: studentSchools.std_id,
+  //       compulsory: {
+  //         exempted: studentSchools.exemption_from_compulsory_education,
+  //         date: {
+  //           month: studentSchools.date.month,
+  //           day: studentSchools.date.day,
+  //           year: studentSchools.date.year,
+  //         },
+  //       },
+  //       schoolsLeft: [...studentSchools.schools_details],
+  //       ageOnInitial: studentSchools.age_on_initial_entry_to_school,
+  //     });
+  //   toggleChoice();
+  //   //studentSchools.exemption_from_compulsory_education ? "yes" : "no"
+  // }, []);
 
-  useEffect(() => {
-    selectedStudent.student_id &&
-      setLeavingInfo({
-        //...leavingInfo,
-        compulsory: {
-          exempted: studentSchools.exemption_from_compulsory_education,
-          date: {
-            month: studentSchools.date.month,
-            day: studentSchools.date.day,
-            year: studentSchools.date.year,
-          },
-        },
-        ageOnInitial: studentSchools.age_on_initial_entry_to_school,
-        schoolsLeft: {...studentSchools.schools_details},
-        
-      });
-    toggleChoice();
-    //studentSchools.exemption_from_compulsory_education ? "yes" : "no"
-  }, []);
 
   const styles = {
     selected: { display: "block" },
     not_selected: { display: "none" },
   };
 
-  const renderedList = () => {
-    for(const [key, value] of Object.entries(leavingInfo.schoolsLeft)) {
-      console.log(key, value)
-      return(
-      <div className="school_left_box">
-                
-                <input
-                  type="text"
-                  className="input_admin_no"
-                  disabled={!editingMode}
-                  value={value.admission_no}
-                />
-                <input
-                  type="text"
-                  className="input_school_name"
-                  disabled={!editingMode}
-                  value={value.name_of_school}
-                />
-                <input
-                  type="text"
-                  className="input_medium"
-                  disabled={!editingMode}
-                  value={value.medium}
-                />
-                <input
-                  type="text"
-                  className="input_date_of_admission"
-                  disabled={!editingMode}
-                  value={value.date_of_admission}
-                />
-                <input
-                  type="text"
-                  className="input_grade_of_admission"
-                  disabled={!editingMode}
-                  value={value.grade_of_admission}
-                />
-                <input
-                  type="text"
-                  className="input_date_of_departure"
-                  disabled={!editingMode}
-                  value={value.date_of_departure}
-                />
-                <input
-                  type="text"
-                  className="input_grade_of_departure"
-                  disabled={!editingMode}
-                  value={value.grade_of_departure}
-                />
-              </div>
-              )
-              
-    }
-    
+  const handleAdmissionNoInput = (e) => {
+    console.log(e.target.id)
+    let temp_id = e.target.id
+    let tempList = leavingInfo.schoolsLeft;
+    tempList.forEach(item => {
+      if(item.id === temp_id) {
+        item.admission_no = e.target.value
+      }
+    })
+
+    setLeavingInfo({
+      ...leavingInfo,
+      schoolsLeft: [
+        ...tempList
+      ]
+    })
   }
 
-  //console.log(JSON.stringify(renderedList))
-  
+  const handleNameOfSchoolInput = (e) => {
+    //console.log(e.target.id)
+    let temp_id = e.target.id
+    let tempList = leavingInfo.schoolsLeft;
+    tempList.forEach(item => {
+      if(item.id === temp_id) {
+        item.name_of_school = e.target.value
+      }
+    })
+
+    setLeavingInfo({
+      ...leavingInfo,
+      schoolsLeft: [
+        ...tempList
+      ]
+    })
+  }
+
+  const handleMediumInput = (e) => {
+    //console.log(e.target.id)
+    let temp_id = e.target.id
+    let tempList = leavingInfo.schoolsLeft;
+    tempList.forEach(item => {
+      if(item.id === temp_id) {
+        item.medium = e.target.value
+      }
+    })
+
+    setLeavingInfo({
+      ...leavingInfo,
+      schoolsLeft: [
+        ...tempList
+      ]
+    })
+  } 
+
+  const handleDateOfAdmissionInput = (e) => {
+    //console.log(e.target.id)
+    let temp_id = e.target.id
+    let tempList = leavingInfo.schoolsLeft;
+    tempList.forEach(item => {
+      if(item.id === temp_id) {
+        item.date_of_admission = e.target.value
+      }
+    })
+
+    setLeavingInfo({
+      ...leavingInfo,
+      schoolsLeft: [
+        ...tempList
+      ]
+    })
+  }
+
+  const handleGradeOfAdmissionInput = (e) => {
+    //console.log(e.target.id)
+    let temp_id = e.target.id
+    let tempList = leavingInfo.schoolsLeft;
+    tempList.forEach(item => {
+      if(item.id === temp_id) {
+        item.grade_of_admission = e.target.value
+      }
+    })
+
+    setLeavingInfo({
+      ...leavingInfo,
+      schoolsLeft: [
+        ...tempList
+      ]
+    })
+  }
+
+  const handleDateOfDepartureInput = (e) => {
+    //console.log(e.target.id)
+    let temp_id = e.target.id
+    let tempList = leavingInfo.schoolsLeft;
+    tempList.forEach(item => {
+      if(item.id === temp_id) {
+        item.date_of_departure = e.target.value
+      }
+    })
+
+    setLeavingInfo({
+      ...leavingInfo,
+      schoolsLeft: [
+        ...tempList
+      ]
+    })
+  }
+
+  const handleGradeOfDepartureInput = (e) => {
+    //console.log(e.target.id)
+    let temp_id = e.target.id
+    let tempList = leavingInfo.schoolsLeft;
+    tempList.forEach(item => {
+      if(item.id === temp_id) {
+        item.grade_of_departure = e.target.value
+      }
+    })
+
+    setLeavingInfo({
+      ...leavingInfo,
+      schoolsLeft: [
+        ...tempList
+      ]
+    })
+  } 
+
+  useEffect(() => console.log("This is it:",leavingInfo),[leavingInfo])
 
   return (
     <div className="instructions_container">
@@ -174,7 +323,10 @@ const SchoolsAttended = ({
           <div
             className="save_edited editing_controls_btns"
             style={editingMode ? styles.selected : styles.not_selected}
-            onClick={() => shiftEditingMode("not_editing")}
+            onClick={() => {
+              shiftEditingMode("not_editing")
+              updateSchoolsAttendedFirebase("af4b1efc-3cba-4f0e-ae37-78ef30c3fbeb", leavingInfo)
+            }}
           >
             Save changes
           </div>
@@ -313,61 +465,153 @@ const SchoolsAttended = ({
         <div className="departure_date">DATE</div>
         <div className="departure_grade">GRADE</div>
       </div>
-      {/* <div className="schools_left_sections">
+      <div className="schools_left_sections">
         {leavingInfo.schoolsLeft.map((sc) => {
           return (
             <div className="school_left_box">
-              
+              {/* <input
+                type="text"
+                className="input_admin_no"
+                disabled={!editingMode}
+                onChange={(e) => {
+                  setLeavingInfo({
+                    ...leavingInfo,
+                    admission_no: e.target.value,
+                  });
+                }}
+                value={leavingInfo.admission_no}
+              />
+              <input
+                type="text"
+                className="input_school_name"
+                disabled={!editingMode}
+                onChange={(e) => {
+                  setLeavingInfo({
+                    ...leavingInfo,
+                    name_of_school: e.target.value,
+                  });
+                }}
+                value={leavingInfo.name_of_school}
+              />
+              <input
+                type="text"
+                className="input_medium"
+                disabled={!editingMode}
+                onChange={(e) => {
+                  setLeavingInfo({
+                    ...leavingInfo,
+                    medium: e.target.value,
+                  });
+                }}
+                value={leavingInfo.medium}
+              />
+              <input
+                type="text"
+                className="input_date_of_admission"
+                disabled={!editingMode}
+                onChange={(e) => {
+                  setLeavingInfo({
+                    ...leavingInfo,
+                    admission_date: e.target.value,
+                  });
+                }}
+                value={leavingInfo.admission_date}
+              />
+              <input
+                type="text"
+                className="input_grade_of_admission"
+                disabled={!editingMode}
+                onChange={(e) => {
+                  setLeavingInfo({
+                    ...leavingInfo,
+                    admission_grade: e.target.value,
+                  });
+                }}
+                value={leavingInfo.admission_grade}
+              />
+              <input
+                type="text"
+                className="input_date_of_departure"
+                disabled={!editingMode}
+                onChange={(e) => {
+                  setLeavingInfo({
+                    ...leavingInfo,
+                    departure_date: e.target.value,
+                  });
+                }}
+                value={leavingInfo.departure_date}
+              />
+              <input
+                type="text"
+                className="input_grade_of_departure"
+                disabled={!editingMode}
+                onChange={(e) => {
+                  setLeavingInfo({
+                    ...leavingInfo,
+                    departure_grade: e.target.value,
+                  });
+                }}
+                value={leavingInfo.departure_grade}
+              /> */}
               <input
                 type="text"
                 className="input_admin_no"
                 disabled={!editingMode}
                 value={sc.admission_no}
+                id={sc.id}
+                onChange={(e) => handleAdmissionNoInput(e)}
               />
               <input
                 type="text"
                 className="input_school_name"
                 disabled={!editingMode}
                 value={sc.name_of_school}
+                id={sc.id}
+                onChange={(e) => handleNameOfSchoolInput(e)}
               />
               <input
                 type="text"
                 className="input_medium"
                 disabled={!editingMode}
                 value={sc.medium}
+                id={sc.id}
+                onChange={(e) => handleMediumInput(e)}
               />
               <input
                 type="text"
                 className="input_date_of_admission"
                 disabled={!editingMode}
                 value={sc.date_of_admission}
+                id={sc.id}
+                onChange={(e) => handleDateOfAdmissionInput(e)}
               />
               <input
                 type="text"
                 className="input_grade_of_admission"
                 disabled={!editingMode}
                 value={sc.grade_of_admission}
+                id={sc.id}
+                onChange={(e) => handleGradeOfAdmissionInput(e)}
               />
               <input
                 type="text"
                 className="input_date_of_departure"
                 disabled={!editingMode}
                 value={sc.date_of_departure}
+                id={sc.id}
+                onChange={(e) => handleDateOfDepartureInput(e)}
               />
               <input
                 type="text"
                 className="input_grade_of_departure"
                 disabled={!editingMode}
                 value={sc.grade_of_departure}
+                id={sc.id}
+                onChange={(e) => handleGradeOfDepartureInput(e)}
               />
             </div>
           );
         })}
-      </div> */}
-      <div className="schools_left_sections">
-      {
-        renderedList()
-      }
       </div>
       <div className="add_left_school">
         <div className="surround_border">

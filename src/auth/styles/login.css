@@ -1,0 +1,153 @@
+.login_container {
+    width: 100%;
+    height: 93vh;
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login_main_box{
+    background-color: #fff;
+    padding: 20px;
+    width: 400px;
+    height: 75vh;
+    border-radius: 20px;
+}
+
+.login_main_title{
+    font-weight: normal;
+    font-size: 20px;
+    line-height:25px;
+    margin-bottom: 15px;
+    color: rgb(36, 40, 80);
+}
+
+.login_second_title {
+    border-left: 8px solid rgb(1, 161, 231);
+    padding-left: 5px;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.login_input_fields {
+    position: relative;
+}
+
+.inputs_box_container{
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+
+.inputs_box_container input {
+    background-color: rgba(36, 40, 80, 0.726);
+    color: #fff;
+    height: 45px;
+    width: 250px;
+    outline: none;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    padding-left: 12px;
+}
+
+.icon_box{
+    background-color: rgb(36, 40, 80);
+    color: #fff;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px 0 0 5px;
+}
+
+::placeholder {
+    color: #111;
+}
+
+
+/*STYLING THE FORM*/
+
+.login_inputs_container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.login_error_message{
+    margin-bottom: 12px;
+    color: orangered;
+    font-size: 15px;
+    padding: 0 15px;
+}
+
+.submit_btn{
+    border: none;
+    outline: none;
+    background-color: rgb(1, 161, 231);
+    color: #fff;
+    width: 295px;
+    height: 45px;
+    border-radius: 5px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+    overflow: hidden;
+}
+
+.submit_btn:hover{
+    background-color: rgb(36, 40, 80);
+    color: #fff;
+}
+
+.submit_btn:hover .icona {
+    transform: translateX(0);
+}
+
+
+.icona{
+    position: absolute;
+    right: 15px;
+    transition: 0.5s;
+    transform: translateX(30px);
+}
+
+.create_account_btn {
+    text-decoration: underline;
+    color: blue;
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.forgot_password_btn {
+    text-decoration: underline;
+    color: blue;
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+#user_creation {
+    width: 295px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.create_account_btn:hover,
+.forgot_password_btn:hover {
+    color: orangered;
+}
+
+/*//////////////////////////*/

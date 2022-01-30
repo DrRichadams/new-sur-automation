@@ -49,10 +49,12 @@ class StudentsBoard extends Component {
     const { sectionsControls, addNewStudentTrigger } = this.props.studentsBoard;
     const { switchSex, triggerSection } = this.props;
 
+    const { studentsBoardData } = this.props
+
     console.log("Students list", this.props);
     //console.log("needed", toggleTwo);
 
-    const renderMaleStudents = studentsList
+    const renderMaleStudents = studentsBoardData
       .filter((st) => st.gender === "male")
       .map((student) => (
         <div className="sin_student">
@@ -75,7 +77,7 @@ class StudentsBoard extends Component {
         </div>
       ));
 
-    const renderFemaleStudents = studentsList
+    const renderFemaleStudents = studentsBoardData
       .filter((st) => st.gender === "female")
       .map((student) => (
         <div className="sin_student">
