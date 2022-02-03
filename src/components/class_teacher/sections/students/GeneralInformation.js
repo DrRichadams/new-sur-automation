@@ -17,14 +17,14 @@ import { v4 as uuidv4 } from 'uuid';
 
 const GeneralInformation = (props) => {
 
-  const [temporaryData, settemporaryData] = useState([]);
-  const [finalizedData, setfinalizedData] = useState([]);
+  const current_id = props.selectedStudent.student_id
+  const [fromData, setfromData] = useState([]);
 
     useEffect(() => {
     onSnapshot(collection(db, "general_information"),(snapshot) => {
             console.log("From Firebase in remarks",snapshot.docs.map((doc) => doc.data()));
             let tempData = snapshot.docs.map((doc) => doc.data())
-            settemporaryData([
+            setfromData([
                 ...tempData
             ])
           }
@@ -32,23 +32,25 @@ const GeneralInformation = (props) => {
         
   },[])
 
-  useEffect(() => { setfinalizedData([...temporaryData]) }, [temporaryData])
+  const current_data= fromData.find(sin => sin.std_id === current_id);
+
+  //const { outstanding_achievements, outstanding_aptitudes, vocational_choice } = current_data && current_data
+
+  useEffect(() => { console.log( "My recent data",current_data) }, [fromData])
 
   const { oap, oac, voca } = props.giBtns;
   const { switchbtnFun, toggleEditing } = props;
 
   //const exGeneralInfo = props.exGeneralInfo;
   const { student_id } = props.selectedStudent;
-  const currentStudentData = finalizedData.find(
-    (sin) => sin.std_id === student_id
-  );
+  
   const { editingMode } = props.editMode;
-  console.log("Info", currentStudentData);
+  console.log("Info", current_data);
 
   //const editingMode = false;
 
   const [generalInfo, setGeneralInfo] = useState({
-    std_id: student_id,
+    std_id: "",
     outstanding_aptitudes: {
       aptitudes: "",
       interests: "",
@@ -67,61 +69,79 @@ const GeneralInformation = (props) => {
   });
 
   // useEffect(() => {
-  //   let unmo = false
   //     ///////////////////////////////////////
-  //       if(!unmo) {
-  //         currentStudentData && setGeneralInfo({
+  //     current_data && setGeneralInfo({
+  //           std_id: student_id,
   //           /////////////////////////
   //           outstanding_aptitudes: {
-  //             aptitudes: currentStudentData.outstanding_aptitudes_interests.aptitudes,
-  //             interests: currentStudentData.outstanding_aptitudes_interests.interests,
+  //             aptitudes: current_data.outstanding_aptitudes_interests.aptitudes,
+  //             interests: current_data.outstanding_aptitudes_interests.interests,
   //           },
   //           outstanding_achievements: {
-  //             academic: currentStudentData.outstanding_achievements_attained.academic,
-  //             extra_curricula:
-  //               currentStudentData.outstanding_achievements_attained.extra_curricular,
+  //             academic: current_data.outstanding_achievements_attained.academic,
+  //             extra_curricula: current_data.outstanding_achievements_attained.extra_curricula,
   //           },
   //           vocational_choice: {
-  //             careers_chosen_by_learner:
-  //               currentStudentData.vocational_choice.careers_chosen_by_learner,
-  //             careers_chosen_by_parents:
-  //               currentStudentData.vocational_choice.careers_chosen_by_parents,
-  //             counsellor_recommendations:
-  //               currentStudentData.vocational_choice.counsellors_recommendations,
-  //             broad_vocational_field:
-  //               currentStudentData.vocational_choice.broad_vocational_field,
-  //             specific_careers: currentStudentData.vocational_choice.specific_careers,
+  //             careers_chosen_by_learner: current_data.vocational_choice.careers_chosen_by_learner,
+  //             careers_chosen_by_parents: current_data.vocational_choice.careers_chosen_by_parents,
+  //             counsellor_recommendations: current_data.vocational_choice.counsellor_recommendations,
+  //             broad_vocational_field: current_data.vocational_choice.broad_vocational_field,
+  //             specific_careers: current_data.vocational_choice.specific_careers,
   //           },
   //           /////////////////////////
   //         });
-  //       }
   //     ///////////////////////////////////////
-  //   return () => unmo = true
-  // }, [finalizedData]);
+  // }, [fromData]);
+
+  useEffect(() => {
+      ///////////////////////////////////////
+      current_data && setGeneralInfo({
+            std_id: student_id,
+            /////////////////////////
+            outstanding_aptitudes: { ...current_data.outstanding_aptitudes },
+            outstanding_achievements: { ...current_data.outstanding_achievements },
+            vocational_choice: { ...current_data.vocational_choice },
+            /////////////////////////
+          });
+      ///////////////////////////////////////
+  }, [fromData]);
+
+  useEffect(() => { console.log( "Set general",generalInfo) }, [generalInfo])
+
+  // const updateFirebase = async (cur_id, data) => {
+  //   const docRef = doc(db, "general_information", cur_id);
+  //   let payload = {
+  //     std_id: current_id,
+  //     outstanding_aptitudes: {
+  //       aptitudes: data.outstanding_aptitudes.aptitudes,
+  //       interests: data.outstanding_aptitudes.interests,
+  //     },
+  //     outstanding_achievements: {
+  //       academic: data.outstanding_achievements.academic,
+  //       extra_curricula: data.outstanding_achievements.extra_curricula,
+  //     },
+  //     vocational_choice: {
+  //       careers_chosen_by_learner: data.vocational_choice.careers_chosen_by_learner,
+  //       careers_chosen_by_parents: data.vocational_choice.careers_chosen_by_parents,
+  //       counsellor_recommendations: data.vocational_choice.counsellor_recommendations,
+  //       broad_vocational_field: data.vocational_choice.broad_vocational_field,
+  //       specific_careers: data.vocational_choice.specific_careers,
+  //     },
+  //   }
+  //   await setDoc(docRef, payload);
+  // }
 
   const updateFirebase = async (cur_id, data) => {
     const docRef = doc(db, "general_information", cur_id);
     let payload = {
-      std_id: student_id,
-      outstanding_aptitudes: {
-        aptitudes: generalInfo.outstanding_aptitudes.aptitudes,
-        interests: generalInfo.outstanding_aptitudes.interests,
-      },
-      outstanding_achievements: {
-        academic: generalInfo.outstanding_achievements.academic,
-        extra_curricula: generalInfo.outstanding_achievements.extra_curricula,
-      },
-      vocational_choice: {
-        careers_chosen_by_learner: generalInfo.vocational_choice.careers_chosen_by_learner,
-        careers_chosen_by_parents: generalInfo.vocational_choice.careers_chosen_by_parents,
-        counsellor_recommendations: generalInfo.vocational_choice.counsellor_recommendations,
-        broad_vocational_field: generalInfo.vocational_choice.broad_vocational_field,
-        specific_careers: generalInfo.vocational_choice.specific_careers,
-      },
+      std_id: current_id,
+      outstanding_aptitudes: {...data.outstanding_aptitudes},
+      outstanding_achievements: {...data.outstanding_achievements},
+      vocational_choice: {...data.vocational_choice},
     }
-    finalizedData && await setDoc(docRef, payload);
+    await setDoc(docRef, payload);
   }
-  //console.log("testing data", generalInfo.vocational_choice.careers_chosen_by_learner)
+  console.log("testing data", generalInfo)
 
   return (
     <div className="instructions_container">
@@ -146,7 +166,7 @@ const GeneralInformation = (props) => {
             className="save_edited editing_controls_btns"
             style={{ display: editingMode ? "block" : "none" }}
             onClick={() => {
-                updateFirebase(student_id, generalInfo)
+                updateFirebase(current_id, generalInfo)
                 toggleEditing("not_editing")
             }}
           >

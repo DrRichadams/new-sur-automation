@@ -4,10 +4,48 @@ import {
   togglePBBtns,
   toggleEditingMode,
 } from "../../../../store/actions/studentDataActions/problematicBehaviourAction";
+import db from "../../../../firebase"
+import {
+  collection,
+  onSnapshot,
+  doc,
+  setDoc,
+  getDocs,
+} from "firebase/firestore";
+import { v4 as uuidv4 } from 'uuid';
 
 const ProblematicBehaviour = (props) => {
   const { natBtn, actBtn, resBtn } = props.threeMain;
   const { toggleThree, shiftEditingMode } = props;
+
+  const current_id = props.selectedStudent.student_id
+  console.log("My IDENTITY", current_id)
+
+  const [fromData, setfromData] = useState([]);
+
+  useEffect(() => {
+    
+    let unmounted = false
+    
+      onSnapshot(collection(db, "problematic_behaviour"),(snapshot) => {
+            //console.log("From Firebase",snapshot.docs.map((doc) => doc.data()));
+            let tempData = snapshot.docs.map((doc) => doc.data())
+            if(!unmounted) {
+            setfromData([
+                ...tempData
+            ])
+            }
+          }
+        )
+
+        return () => unmounted = true
+        
+  },[])
+
+  const current_data = fromData.find(sin => sin.std_id === current_id)
+
+  useEffect(() => { console.log("From data now", current_data) }, [fromData])
+
 
   const exProblematicData = props.exProblematicData;
   const { student_id } = props.selectedStudent;
@@ -21,18 +59,39 @@ const ProblematicBehaviour = (props) => {
   //const editingMode = false;
 
   const [problematicData, setProblematicData] = useState({
-    nature_of_offense: null,
-    action_taken: null,
-    results: null,
+    nature_of_offense: "",
+    action_taken: "",
+    results: "",
   });
 
   useEffect(() => {
-    setProblematicData({
-      nature_of_offense: currentProblemData.nature_of_offence,
-      action_taken: currentProblemData.action_taken,
-      results: currentProblemData.results,
+    current_data && setProblematicData({
+      nature_of_offense: current_data.nature_of_offence,
+      action_taken: current_data.action_taken,
+      results: current_data.results,
     });
-  }, []);
+  }, [fromData]);
+
+  const handleInputChange = (e) => {
+    setProblematicData({
+      ...problematicData,
+      [ e.target.id ]: e.target.value
+    })
+  }
+
+  ////////HANDLING FIREBASE UPDATE FUNCTIONS//////////////////
+  const updateSchoolsAttendedFirebase = async(cur_id, data) => {
+    const payload = {
+      action_taken: data.action_taken,
+      nature_of_offence: data.nature_of_offense,
+      results: data.results,
+      std_id: current_id
+    }
+    const docRef = doc(db, "problematic_behaviour", cur_id);
+    await setDoc(docRef, payload);
+    alert("Data updated successfully")
+    console.log("My payload", payload)
+  }
 
   return (
     <div className="instructions_container">
@@ -56,7 +115,10 @@ const ProblematicBehaviour = (props) => {
           <div
             className="save_edited editing_controls_btns"
             style={{ display: editingMode ? "block" : "none" }}
-            onClick={() => shiftEditingMode("not_editing")}
+            onClick={() => {
+              shiftEditingMode("not_editing")
+              updateSchoolsAttendedFirebase(current_id, problematicData)
+            }}
           >
             Save changes
           </div>
@@ -104,12 +166,8 @@ const ProblematicBehaviour = (props) => {
         >
           <textarea
             disabled={!editingMode}
-            onChange={(e) => {
-              setProblematicData({
-                ...problematicData,
-                nature_of_offense: e.target.value,
-              });
-            }}
+            id="nature_of_offense"
+            onChange={(e) => { handleInputChange(e) }}
             value={problematicData.nature_of_offense}
           ></textarea>
         </div>
@@ -122,12 +180,8 @@ const ProblematicBehaviour = (props) => {
         >
           <textarea
             disabled={!editingMode}
-            onChange={(e) => {
-              setProblematicData({
-                ...problematicData,
-                action_taken: e.target.value,
-              });
-            }}
+            id="action_taken"
+            onChange={(e) => { handleInputChange(e) }}
             value={problematicData.action_taken}
           ></textarea>
         </div>
@@ -140,12 +194,8 @@ const ProblematicBehaviour = (props) => {
         >
           <textarea
             disabled={!editingMode}
-            onChange={(e) => {
-              setProblematicData({
-                ...problematicData,
-                results: e.target.value,
-              });
-            }}
+            id="results"
+            onChange={(e) => { handleInputChange(e) }}
             value={problematicData.results}
           ></textarea>
         </div>

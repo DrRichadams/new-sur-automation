@@ -29,17 +29,93 @@ const ScholasticAchievements = (props) => {
     
   ]);
 
-  const changeSubInputChange = (e) => {
-    const stepRemove = primaryStudentList.filter(sin => sin.id !== e.target.id)
-    const stepToChange = primaryStudentList.find(sin => sin.id === e.target.id)
-    const stepChanged = stepToChange.subject_name = e.target.value
-    const stepNewData = stepRemove.concat(stepChanged)
+  ////////////////////UPDATING SUBJECT FIELD INPUTS STARTS HERE///////////////////////////
 
-    setprimaryStudentList([
-      ...stepNewData
-    ])
-    console.log("Changed data", primaryStudentList)
+  const update_pri_sub_name = (e) => {
+    let tempData = primaryStudentList;
+    tempData.forEach(item => {if(item.id === e.target.id) item.subject_name = e.target.value})
+    setprimaryStudentList([ ...tempData ])
   }
+
+  const update_pri_sub_c1 = (e) => {
+    let tempData = primaryStudentList;
+    tempData.forEach(item => {if(item.id === e.target.id) item.sub_cols.c1 = e.target.value})
+    setprimaryStudentList([ ...tempData ])
+  }
+
+    const update_pri_sub_c2 = (e) => {
+    let tempData = primaryStudentList;
+    tempData.forEach(item => {if(item.id === e.target.id) item.sub_cols.c2 = e.target.value})
+    setprimaryStudentList([ ...tempData ])
+  }
+
+  const update_pri_sub_c3 = (e) => {
+    let tempData = primaryStudentList;
+    tempData.forEach(item => {if(item.id === e.target.id) item.sub_cols.c3 = e.target.value})
+    setprimaryStudentList([ ...tempData ])
+  }
+
+  const update_pri_sub_c4 = (e) => {
+    let tempData = primaryStudentList;
+    tempData.forEach(item => {if(item.id === e.target.id) item.sub_cols.c4 = e.target.value})
+    setprimaryStudentList([ ...tempData ])
+  }
+
+  const update_pri_sub_c5 = (e) => {
+    let tempData = primaryStudentList;
+    tempData.forEach(item => {if(item.id === e.target.id) item.sub_cols.c5 = e.target.value})
+    setprimaryStudentList([ ...tempData ])
+  }
+
+  const update_pri_sub_c6 = (e) => {
+    let tempData = primaryStudentList;
+    tempData.forEach(item => {if(item.id === e.target.id) item.sub_cols.c6 = e.target.value})
+    setprimaryStudentList([ ...tempData ])
+  }
+
+  const update_pri_sub_c7 = (e) => {
+    let tempData = primaryStudentList;
+    tempData.forEach(item => {if(item.id === e.target.id) item.sub_cols.c7 = e.target.value})
+    setprimaryStudentList([ ...tempData ])
+  }
+
+  const update_pri_sub_c8 = (e) => {
+    let tempData = primaryStudentList;
+    tempData.forEach(item => {if(item.id === e.target.id) item.sub_cols.c8 = e.target.value})
+    setprimaryStudentList([ ...tempData ])
+  }
+
+  const update_pri_sub_c9 = (e) => {
+    let tempData = primaryStudentList;
+    tempData.forEach(item => {if(item.id === e.target.id) item.sub_cols.c9 = e.target.value})
+    setprimaryStudentList([ ...tempData ])
+  }
+
+  const update_pri_sub_c10 = (e) => {
+    let tempData = primaryStudentList;
+    tempData.forEach(item => {if(item.id === e.target.id) item.sub_cols.c10 = e.target.value})
+    setprimaryStudentList([ ...tempData ])
+  }
+
+  const update_pri_sub_c11 = (e) => {
+    let tempData = primaryStudentList;
+    tempData.forEach(item => {if(item.id === e.target.id) item.sub_cols.c11 = e.target.value})
+    setprimaryStudentList([ ...tempData ])
+  }
+
+    ////////////////////UPDATING SUBJECT FIELD INPUTS ENDS HERE///////////////////////////
+
+  // const changeSubInputChange = (e) => {
+  //   const stepRemove = primaryStudentList.filter(sin => sin.id !== e.target.id)
+  //   const stepToChange = primaryStudentList.find(sin => sin.id === e.target.id)
+  //   const stepChanged = stepToChange.subject_name = e.target.value
+  //   const stepNewData = stepRemove.concat(stepChanged)
+
+  //   setprimaryStudentList([
+  //     ...stepNewData
+  //   ])
+  //   console.log("Changed data", primaryStudentList)
+  // }
 
   useEffect(() => {
    console.log("student listing",primaryStudentList)
@@ -156,281 +232,49 @@ const ScholasticAchievements = (props) => {
           <div className="year_month_box">
             <div className="year_title">YEAR AND MONTH</div>
             <div className="year_input_boxes">
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="yam1"
-                onChange={e => handleYamChange(e)}
-                value={yam.yam1}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="yam2"
-                onChange={e => handleYamChange(e)}
-                value={yam.yam2}
-              />
-
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="yam3"
-                onChange={e => handleYamChange(e)}
-                value={yam.yam3}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="yam4"
-                onChange={e => handleYamChange(e)}
-                value={yam.yam4}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="yam5"
-                onChange={e => handleYamChange(e)}
-                value={yam.yam5}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="yam6"
-                onChange={e => handleYamChange(e)}
-                value={yam.yam6}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="yam7"
-                onChange={e => handleYamChange(e)}
-                value={yam.yam7}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="yam8"
-                onChange={e => handleYamChange(e)}
-                value={yam.yam8}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="yam9"
-                onChange={e => handleYamChange(e)}
-                value={yam.yam9}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="yam10"
-                onChange={e => handleYamChange(e)}
-                value={yam.yam10}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="yam11"
-                onChange={e => handleYamChange(e)}
-                value={yam.yam11}
-              />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="yam1" onChange={e => handleYamChange(e)} value={yam.yam1} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="yam2" onChange={e => handleYamChange(e)} value={yam.yam2} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="yam3" onChange={e => handleYamChange(e)} value={yam.yam3} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="yam4" onChange={e => handleYamChange(e)} value={yam.yam4} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="yam5" onChange={e => handleYamChange(e)} value={yam.yam5} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="yam6" onChange={e => handleYamChange(e)} value={yam.yam6} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="yam7" onChange={e => handleYamChange(e)} value={yam.yam7} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="yam8" onChange={e => handleYamChange(e)} value={yam.yam8} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="yam9" onChange={e => handleYamChange(e)} value={yam.yam9} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="yam10" onChange={e => handleYamChange(e)} value={yam.yam10} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="yam11" onChange={e => handleYamChange(e)} value={yam.yam11} />
             </div>
           </div>
           <div className="grade_box">
             <div className="grade_name_title">GRADE</div>
             <div className="grade_input_boxes">
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="gd1"
-                onChange={e => handleGdChange(e)}
-                value={gd.gd1}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="gd2"
-                onChange={e => handleGdChange(e)}
-                value={gd.gd2}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="gd3"
-                onChange={e => handleGdChange(e)}
-                value={gd.gd3}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="gd4"
-                onChange={e => handleGdChange(e)}
-                value={gd.gd4}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="gd5"
-                onChange={e => handleGdChange(e)}
-                value={gd.gd5}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="gd6"
-                onChange={e => handleGdChange(e)}
-                value={gd.gd6}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="gd7"
-                onChange={e => handleGdChange(e)}
-                value={gd.gd7}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="gd8"
-                onChange={e => handleGdChange(e)}
-                value={gd.gd8}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="gd9"
-                onChange={e => handleGdChange(e)}
-                value={gd.gd9}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="gd10"
-                onChange={e => handleGdChange(e)}
-                value={gd.gd10}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="gd11"
-                onChange={e => handleGdChange(e)}
-                value={gd.gd11}
-              />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="gd1" onChange={e => handleGdChange(e)} value={gd.gd1} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="gd2" onChange={e => handleGdChange(e)} value={gd.gd2} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="gd3" onChange={e => handleGdChange(e)} value={gd.gd3} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="gd4" onChange={e => handleGdChange(e)} value={gd.gd4} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="gd5" onChange={e => handleGdChange(e)} value={gd.gd5} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="gd6" onChange={e => handleGdChange(e)} value={gd.gd6} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="gd7" onChange={e => handleGdChange(e)} value={gd.gd7} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="gd8" onChange={e => handleGdChange(e)} value={gd.gd8} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="gd9" onChange={e => handleGdChange(e)} value={gd.gd9} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="gd10" onChange={e => handleGdChange(e)} value={gd.gd10} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="gd11" onChange={e => handleGdChange(e)} value={gd.gd11} />
             </div>
           </div>
           <div className="leve_grade_box">
             <div className="level_title">LEVEL OF GRADE</div>
             <div className="level_input_boxes">
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="log1"
-                onChange={e => handleLogChange(e)}
-                value={log.log1}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="log2"
-                onChange={e => handleLogChange(e)}
-                value={log.log2}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="log3"
-                onChange={e => handleLogChange(e)}
-                value={log.log3}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="log4"
-                onChange={e => handleLogChange(e)}
-                value={log.log4}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="log5"
-                onChange={e => handleLogChange(e)}
-                value={log.log5}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="log6"
-                onChange={e => handleLogChange(e)}
-                value={log.log6}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="log7"
-                onChange={e => handleLogChange(e)}
-                value={log.log7}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="log8"
-                onChange={e => handleLogChange(e)}
-                value={log.log8}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="log9"
-                onChange={e => handleLogChange(e)}
-                value={log.log9}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="log10"
-                onChange={e => handleLogChange(e)}
-                value={log.log10}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="log11"
-                onChange={e => handleLogChange(e)}
-                value={log.log11}
-              />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="log1" onChange={e => handleLogChange(e)} value={log.log1} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="log2" onChange={e => handleLogChange(e)} value={log.log2} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="log3" onChange={e => handleLogChange(e)} value={log.log3} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="log4" onChange={e => handleLogChange(e)} value={log.log4} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="log5" onChange={e => handleLogChange(e)} value={log.log5} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="log6" onChange={e => handleLogChange(e)} value={log.log6} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="log7" onChange={e => handleLogChange(e)} value={log.log7} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="log8" onChange={e => handleLogChange(e)} value={log.log8} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="log9" onChange={e => handleLogChange(e)} value={log.log9} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="log10" onChange={e => handleLogChange(e)} value={log.log10} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="log11" onChange={e => handleLogChange(e)} value={log.log11} />
             </div>
           </div>
           <div className="english_home_box">
@@ -438,94 +282,17 @@ const ScholasticAchievements = (props) => {
               ENGLISH HOME / SECOND LANGUAGE
             </div>
             <div className="english_home_input_boxes">
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="eh1"
-                onChange={e => handleEhChange(e)}
-                value={eh.eh1}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="eh2"
-                onChange={e => handleEhChange(e)}
-                value={eh.eh2}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="eh3"
-                onChange={e => handleEhChange(e)}
-                value={eh.eh3}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="eh4"
-                onChange={e => handleEhChange(e)}
-                value={eh.eh4}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="eh5"
-                onChange={e => handleEhChange(e)}
-                value={eh.eh5}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="eh6"
-                onChange={e => handleEhChange(e)}
-                value={eh.eh6}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="eh7"
-                onChange={e => handleEhChange(e)}
-                value={eh.eh7}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="eh8"
-                onChange={e => handleEhChange(e)}
-                value={eh.eh8}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="eh9"
-                onChange={e => handleEhChange(e)}
-                value={eh.eh9}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="eh10"
-                onChange={e => handleEhChange(e)}
-                value={eh.eh10}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-                id="eh11"
-                onChange={e => handleEhChange(e)}
-                value={eh.eh11}
-              />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="eh1" onChange={e => handleEhChange(e)} value={eh.eh1} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="eh2" onChange={e => handleEhChange(e)} value={eh.eh2} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="eh3" onChange={e => handleEhChange(e)} value={eh.eh3} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="eh4" onChange={e => handleEhChange(e)} value={eh.eh4} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="eh5" onChange={e => handleEhChange(e)} value={eh.eh5} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="eh6" onChange={e => handleEhChange(e)} value={eh.eh6} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="eh7" onChange={e => handleEhChange(e)} value={eh.eh7} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="eh8" onChange={e => handleEhChange(e)} value={eh.eh8} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="eh9" onChange={e => handleEhChange(e)} value={eh.eh9} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="eh10" onChange={e => handleEhChange(e)} value={eh.eh10} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} id="eh11" onChange={e => handleEhChange(e)} value={eh.eh11} />
             </div>
           </div>
         </div>
@@ -533,148 +300,20 @@ const ScholasticAchievements = (props) => {
           {primaryStudentList && primaryStudentList.map((sin) => {
             return (
               <div className="sa_subject_box" key={sin.id}>
-                <input
-                  type="text"
-                  className="sa_subject_title"
-                  disabled={!editingMode}
-                  id="111"
-                  onChange={(e) => changeSubInputChange(e)}
-                  value={sin.subject_name}
-                />
+                <input type="text" className="sa_subject_title" disabled={!editingMode} id={sin.id} onChange={(e) => update_pri_sub_name(e)} value={sin.subject_name} />
 
                 <div className="sa_subject_input_fields">
-                  <input
-                    type="text"
-                    className="sc_section_inputs"
-                    disabled={!editingMode}
-                    onChange={(e) => {
-                      setPr_subjectInfo({
-                        ...pr_subjectInfo,
-                        col1: e.target.value,
-                      });
-                    }}
-                    value={pr_subjectInfo.col1}
-                  />
-                  <input
-                    type="text"
-                    className="sc_section_inputs"
-                    disabled={!editingMode}
-                    onChange={(e) => {
-                      setPr_subjectInfo({
-                        ...pr_subjectInfo,
-                        col2: e.target.value,
-                      });
-                    }}
-                    value={pr_subjectInfo.col2}
-                  />
-                  <input
-                    type="text"
-                    className="sc_section_inputs"
-                    disabled={!editingMode}
-                    onChange={(e) => {
-                      setPr_subjectInfo({
-                        ...pr_subjectInfo,
-                        col3: e.target.value,
-                      });
-                    }}
-                    value={pr_subjectInfo.col3}
-                  />
-                  <input
-                    type="text"
-                    className="sc_section_inputs"
-                    disabled={!editingMode}
-                    onChange={(e) => {
-                      setPr_subjectInfo({
-                        ...pr_subjectInfo,
-                        col4: e.target.value,
-                      });
-                    }}
-                    value={pr_subjectInfo.col4}
-                  />
-                  <input
-                    type="text"
-                    className="sc_section_inputs"
-                    disabled={!editingMode}
-                    onChange={(e) => {
-                      setPr_subjectInfo({
-                        ...pr_subjectInfo,
-                        col5: e.target.value,
-                      });
-                    }}
-                    value={pr_subjectInfo.col5}
-                  />
-                  <input
-                    type="text"
-                    className="sc_section_inputs"
-                    disabled={!editingMode}
-                    onChange={(e) => {
-                      setPr_subjectInfo({
-                        ...pr_subjectInfo,
-                        col6: e.target.value,
-                      });
-                    }}
-                    value={pr_subjectInfo.col6}
-                  />
-                  <input
-                    type="text"
-                    className="sc_section_inputs"
-                    disabled={!editingMode}
-                    onChange={(e) => {
-                      setPr_subjectInfo({
-                        ...pr_subjectInfo,
-                        col7: e.target.value,
-                      });
-                    }}
-                    value={pr_subjectInfo.col7}
-                  />
-                  <input
-                    type="text"
-                    className="sc_section_inputs"
-                    disabled={!editingMode}
-                    onChange={(e) => {
-                      setPr_subjectInfo({
-                        ...pr_subjectInfo,
-                        col8: e.target.value,
-                      });
-                    }}
-                    value={pr_subjectInfo.col8}
-                  />
-                  <input
-                    type="text"
-                    className="sc_section_inputs"
-                    disabled={!editingMode}
-                    onChange={(e) => {
-                      setPr_subjectInfo({
-                        ...pr_subjectInfo,
-                        col9: e.target.value,
-                      });
-                    }}
-                    value={pr_subjectInfo.col9}
-                  />
-                  <input
-                    type="text"
-                    className="sc_section_inputs"
-                    disabled={!editingMode}
-                    onChange={(e) => {
-                      setPr_subjectInfo({
-                        ...pr_subjectInfo,
-                        col10: e.target.value,
-                      });
-                    }}
-                    value={pr_subjectInfo.col10}
-                  />
-                  <input
-                    type="text"
-                    className="sc_section_inputs"
-                    disabled={!editingMode}
-                    onChange={(e) => {
-                      setPr_subjectInfo({
-                        ...pr_subjectInfo,
-                        col11: e.target.value,
-                      });
-                    }}
-                    value={pr_subjectInfo.col11}
-                  />
+                  <input type="text" className="sc_section_inputs" disabled={!editingMode} id={sin.id} onChange={(e) => update_pri_sub_c1(e)} value={sin.col1} />
+                  <input type="text" className="sc_section_inputs" disabled={!editingMode} id={sin.id} onChange={(e) => update_pri_sub_c2(e)} value={sin.col2} />
+                  <input type="text" className="sc_section_inputs" disabled={!editingMode} id={sin.id} onChange={(e) => update_pri_sub_c3(e)} value={sin.col3} />
+                  <input type="text" className="sc_section_inputs" disabled={!editingMode} id={sin.id} onChange={(e) => update_pri_sub_c4(e)} value={sin.col4} />
+                  <input type="text" className="sc_section_inputs" disabled={!editingMode} id={sin.id} onChange={(e) => update_pri_sub_c5(e)} value={sin.col5} />
+                  <input type="text" className="sc_section_inputs" disabled={!editingMode} id={sin.id} onChange={(e) => update_pri_sub_c6(e)} value={sin.col6} />
+                  <input type="text" className="sc_section_inputs" disabled={!editingMode} id={sin.id} onChange={(e) => update_pri_sub_c7(e)} value={sin.col7} />
+                  <input type="text" className="sc_section_inputs" disabled={!editingMode} id={sin.id} onChange={(e) => update_pri_sub_c9(e)} value={sin.col8} />
+                  <input type="text" className="sc_section_inputs" disabled={!editingMode} id={sin.id} onChange={(e) => update_pri_sub_c9(e)} value={sin.col9} />
+                  <input type="text" className="sc_section_inputs" disabled={!editingMode} id={sin.id} onChange={(e) => update_pri_sub_c10(e)} value={sin.col10} />
+                  <input type="text" className="sc_section_inputs" disabled={!editingMode} id={sin.id} onChange={(e) => update_pri_sub_c11(e)} value={sin.col11} />
                 </div>
               </div>
             );
@@ -1232,181 +871,49 @@ const ScholasticAchievements = (props) => {
           <div className="year_month_box">
             <div className="year_title">YEAR AND MONTH</div>
             <div className="year_input_boxes">
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
+            <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
             </div>
           </div>
           <div className="grade_box">
             <div className="grade_name_title">GRADE</div>
             <div className="grade_input_boxes">
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
+            <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
             </div>
           </div>
           <div className="leve_grade_box">
             <div className="level_title">LEVEL OF GRADE</div>
             <div className="level_input_boxes">
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
+            <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
             </div>
           </div>
           <div className="english_home_box">
@@ -1414,61 +921,17 @@ const ScholasticAchievements = (props) => {
               ENGLISH HOME / SECOND LANGUAGE
             </div>
             <div className="english_home_input_boxes">
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
+            <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
             </div>
           </div>
         </div>
@@ -1552,241 +1015,65 @@ const ScholasticAchievements = (props) => {
           <div className="average_learner_box">
             <div className="al_title">AVERAGE SYMBOL % OF LEARNER</div>
             <div className="al_input_boxes">
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
             </div>
           </div>
           <div className="average_grade_box">
             <div className="ag_title">AVERAGE SYMBOL % OF GRADE</div>
             <div className="ag_input_boxes">
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
             </div>
           </div>
           <div className="pass_fail_box">
             <div className="pf_title">PASS(P); FAIL(F)</div>
             <div className="pf_input_boxes">
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
             </div>
           </div>
           <div className="school_attendance_box">
             <div className="sat_title">SCHOOL ATTENDANCE ( G; P/R; PT )</div>
             <div className="sat_input_boxes">
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode}/>
+              <input type="text" className="sc_section_inputs" disabled={!editingMode}/>
+              <input type="text" className="sc_section_inputs" disabled={!editingMode}/>
+              <input type="text" className="sc_section_inputs" disabled={!editingMode}/>
+              <input type="text" className="sc_section_inputs" disabled={!editingMode}/>
+              <input type="text" className="sc_section_inputs" disabled={!editingMode}/>
+              <input type="text" className="sc_section_inputs" disabled={!editingMode}/>
+              <input type="text" className="sc_section_inputs" disabled={!editingMode}/>
+              <input type="text" className="sc_section_inputs" disabled={!editingMode}/>
+              <input  type="text" className="sc_section_inputs" disabled={!editingMode}/>
+              <input type="text" className="sc_section_inputs" disabled={!editingMode}/>
             </div>
           </div>
           <div className="satd_detail_box">
@@ -1794,61 +1081,17 @@ const ScholasticAchievements = (props) => {
               G=GOOD; P/R=POOR REASON; P/T=POOR TRUANCY
             </div>
             <div className="satd_input_boxes">
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
-              <input
-                type="text"
-                className="sc_section_inputs"
-                disabled={!editingMode}
-              />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
+              <input type="text" className="sc_section_inputs" disabled={!editingMode} />
             </div>
           </div>
         </div>

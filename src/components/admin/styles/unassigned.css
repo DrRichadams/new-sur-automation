@@ -1,0 +1,73 @@
+.unassigned_main_title {
+    background-color: #e4e4e4;
+    width: 79vw;
+    padding: 8px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.unassigned_main_title p {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 22px;
+    color: rgb(36, 40, 80);
+}
+
+.unassigned_main_title select {
+    border: none;
+    outline: none;
+    background-color: #fff;
+    padding: 5px;
+    width: 200px;
+    margin-right: 30px;
+}
+
+.unassigned_second_title{
+    margin-top: 35px;
+    margin-bottom: 12px;
+    margin-left: 12px;
+    padding-left: 8px;
+    font-size: 22px;
+    font-weight: 500;
+    border-left: 8px solid rgb(1, 161, 231);
+}
+
+.sin_teacher_box {
+    background-color: rgb(176, 184, 209);
+    margin-left: 12px;
+    margin-bottom: 12px;
+    padding: 8px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 3px;
+}
+
+.available_classes{
+    border: none;
+    outline: none;
+    padding: 5px 15px;
+}
+
+.assign_btn{
+    border: none;
+    outline: none;
+    background-color: seagreen;
+    color: #fff;
+    padding: 5px 15px;
+    width: 100px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.assign_btn:hover {
+    letter-spacing: 2px;
+    background-color: rgb(117, 185, 147);
+    color: rgb(36, 40, 80);
+}
+
+.teacher_name {
+    flex: 1;
+}

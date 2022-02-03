@@ -5,6 +5,15 @@ import {
   toggleEditingMode,
 } from "../../../../store/actions/studentDataActions/learningDisabilitiesActions";
 import "./styles/learning_disabilities.css";
+import db from "../../../../firebase"
+import {
+  collection,
+  onSnapshot,
+  doc,
+  setDoc,
+  getDocs,
+} from "firebase/firestore";
+import { v4 as uuidv4 } from 'uuid';
 
 const LearningDisabilities = (props) => {
   const { natBtn, actBtn, resBtn } = props.threeMain;
@@ -12,9 +21,34 @@ const LearningDisabilities = (props) => {
   const { exDisabilitiesData, triggerEditingMode } = props;
   const { student_id } = props.selectedStudent;
 
-  const currentDisabilities = exDisabilitiesData.find(
-    (sin) => sin.std_id === student_id
+  const current_id = props.selectedStudent.student_id
+  const [fromData, setfromData] = useState([]);
+
+
+  useEffect(() => {
+    
+    let unmounted = false
+    
+      onSnapshot(collection(db, "learning_disabilities"),(snapshot) => {
+            //console.log("From Firebase",snapshot.docs.map((doc) => doc.data()));
+            let tempData = snapshot.docs.map((doc) => doc.data())
+            if(!unmounted) {
+            setfromData([
+                ...tempData
+            ])
+            }
+          }
+        )
+
+        return () => unmounted = true
+        
+  },[])
+
+
+  const current_data = fromData.find(sin => sin.std_id === current_id
   );
+
+  useEffect(() => { console.log("From data now", current_data) }, [fromData])
 
   const { editingMode } = props.toggleEditingMode;
   console.table("My props", triggerEditingMode);
@@ -24,16 +58,31 @@ const LearningDisabilities = (props) => {
     action_taken: null,
     results: null,
   });
+  
 
   useEffect(() => {
-    setDisabilitiesInfo({
-      nature: currentDisabilities.nature,
-      action_taken: currentDisabilities.action_taken,
-      results: currentDisabilities.results,
+    current_data && setDisabilitiesInfo({
+      nature: current_data.nature,
+      action_taken: current_data.action_taken,
+      results: current_data.results,
     });
-  }, []);
+  }, [fromData]);
 
   //const editingMode = false;
+
+    ////////HANDLING FIREBASE UPDATE FUNCTIONS//////////////////
+    const updateSchoolsAttendedFirebase = async(cur_id, data) => {
+      const payload = {
+        nature: data.nature,
+        action_taken: data.action_taken,
+        results: data.results,
+        std_id: current_id
+      }
+      const docRef = doc(db, "learning_disabilities", cur_id);
+      await setDoc(docRef, payload);
+      alert("Data updated successfully")
+      console.log("My payload", payload,cur_id)
+    }
 
   return (
     <div className="instructions_container">
@@ -57,7 +106,10 @@ const LearningDisabilities = (props) => {
           <div
             className="save_edited editing_controls_btns"
             style={{ display: editingMode ? "block" : "none" }}
-            onClick={() => triggerEditingMode("not_editing")}
+            onClick={() => {
+              triggerEditingMode("not_editing")
+              updateSchoolsAttendedFirebase(current_id, disabilitiesInfo)
+            }}
           >
             Save changes
           </div>

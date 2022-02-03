@@ -21,33 +21,43 @@ const PhysicalCondition = ({
 }) => {
   //const editingMode = false;
 
-  const [temporaryData, settemporaryData] = useState([]);
-  const [finalizedData, setfinalizedData] = useState([]);
+  const [fromData, setfromData] = useState([]);
+
+  // const [temporaryData, settemporaryData] = useState([]);
+  // const [finalizedData, setfinalizedData] = useState([]);
 
   useEffect(() => {
+    let unmount = false
     onSnapshot(collection(db, "physical_condition"),(snapshot) => {
             console.log("From Firebase",snapshot.docs.map((doc) => doc.data()));
             let tempData = snapshot.docs.map((doc) => doc.data())
-            settemporaryData([
+            if(!unmount) {
+              setfromData([
                 ...tempData
             ])
+            }
           }
         );
+
+        return () => unmount = true
         
   },[])
 
-  useEffect(() => {
-    setfinalizedData([ ...temporaryData ])
-  }, [temporaryData])
+  const current_id = selectedStudent.student_id
 
-  useEffect(() => { console.log("My finalized data:" ,finalizedData) }, [finalizedData])
-
-  const current_student = finalizedData.find(
-    (sin) => sin.std_id === selectedStudent.student_id
+    const current_student = fromData.find(sin => sin.std_id === current_id
   );
-  console.log("My filtered data:" ,current_student)
-  const { editingMode } = physicalConditionReducer;
-  console.log("phy data", editingMode);
+
+  useEffect(() => { console.log("My finalized data:" ,fromData) }, [fromData])
+  useEffect(() => { console.log("My returned data:" ,current_student) }, [fromData])
+  useEffect(() => { console.log("My current ID:" ,selectedStudent.student_id) }, [fromData])
+
+  // const current_student = finalizedData.find(
+  //   (sin) => sin.std_id === selectedStudent.student_id
+  // );
+  // console.log("My filtered data:" ,current_student)
+   const { editingMode } = physicalConditionReducer;
+  // console.log("phy data", editingMode);
 
   const [physicalInfo, setPhysicalInfo] = useState([
     {
@@ -64,7 +74,7 @@ const PhysicalCondition = ({
     current_student && setPhysicalInfo([
       ...current_student.conditions
     ]);
-  }, [finalizedData]);
+  }, [fromData]);
 
   useEffect(() => { console.log("My physic", physicalInfo) }, [physicalInfo])
 
@@ -72,6 +82,85 @@ const PhysicalCondition = ({
     selected: { display: "block" },
     not_selected: { display: "none" },
   };
+
+  const handleDateChange = (e) => {
+    let tempItem = physicalInfo
+    tempItem.forEach(sin => {
+      if(sin.id === e.target.id) {
+        sin.date = e.target.value
+      }
+    })
+    setPhysicalInfo([...tempItem])
+        
+  }
+  const handleHealthChange = (e) => {
+    let tempItem = physicalInfo
+    tempItem.forEach(sin => {
+      if(sin.id === e.target.id) {
+        sin.general_health = e.target.value
+      }
+    })
+    setPhysicalInfo([...tempItem])
+      
+  }
+  const handleProblemChange = (e) => {
+    let tempItem = physicalInfo
+    tempItem.forEach(sin => {
+      if(sin.id === e.target.id) {
+        sin.problem = e.target.value
+      }
+    })
+    setPhysicalInfo([...tempItem])
+      
+  }
+  const handleSolutionChange = (e) => {
+    let tempItem = physicalInfo
+    tempItem.forEach(sin => {
+      if(sin.id === e.target.id) {
+        sin.current_solution = e.target.value
+      }
+    })
+    setPhysicalInfo([...tempItem])
+      
+  }
+  const handlePreviousChange = (e) => {
+    let tempItem = physicalInfo
+    tempItem.forEach(sin => {
+      if(sin.id === e.target.id) {
+        sin.previous_illness = e.target.value
+      }
+    })
+    setPhysicalInfo([...tempItem])
+      
+  }
+
+  const updatePhysicalConditionFirebase = async(cur_id, data) => {
+    const payload = {
+      conditions: [ ...data ],
+      std_id: cur_id
+    }
+    const docRef = doc(db, "physical_condition", cur_id);
+    await setDoc(docRef, payload);
+    alert("Data updated successfully")
+    console.log("My payload", payload)
+  }
+
+  const addNewField = async(cur_id, data) => {
+    const payload = {
+      conditions: [ ...data, {
+        id: uuidv4(),
+        date: "",
+        general_health: "",
+        problem: "",
+        current_solution: "",
+        previous_illness: "",
+      }, ],
+      std_id: cur_id
+    }
+    const docRef = doc(db, "physical_condition", cur_id);
+    await setDoc(docRef, payload);
+    // console.log("My payload", payload)
+  }
 
   return (
     <div className="instructions_container">
@@ -95,7 +184,10 @@ const PhysicalCondition = ({
           <div
             className="save_edited editing_controls_btns"
             style={editingMode ? styles.selected : styles.not_selected}
-            onClick={() => toggleEditingMode("not_editing")}
+            onClick={() => {
+              toggleEditingMode("not_editing")
+              updatePhysicalConditionFirebase(current_id, physicalInfo)
+            }}
           >
             Save changes
           </div>
@@ -116,67 +208,50 @@ const PhysicalCondition = ({
                 type="text"
                 className="physical_date"
                 disabled={!editingMode}
-                onChange={(e) =>
-                  setPhysicalInfo({
-                    ...physicalInfo,
-                    date: e.target.value,
-                  })
-                }
+                id={cond.id}
+                onChange={(e) => handleDateChange(e)}
                 value={cond.date}
               />
               <input
                 type="text"
                 className="physical_general_health"
                 disabled={!editingMode}
-                onChange={(e) =>
-                  setPhysicalInfo({
-                    ...physicalInfo,
-                    general_health: e.target.value,
-                  })
-                }
+                id={cond.id}
+                onChange={(e) => handleHealthChange(e)}
                 value={cond.general_health}
               />
               <input
                 type="text"
                 className="physical_problem"
                 disabled={!editingMode}
-                onChange={(e) =>
-                  setPhysicalInfo({
-                    ...physicalInfo,
-                    problem: e.target.value,
-                  })
-                }
+                id={cond.id}
+                onChange={(e) => handleProblemChange(e) }
                 value={cond.problem}
               />
               <input
                 type="text"
                 className="physical_how_part"
                 disabled={!editingMode}
-                onChange={(e) =>
-                  setPhysicalInfo({
-                    ...physicalInfo,
-                    how_problem: e.target.value,
-                  })
-                }
+                id={cond.id}
+                onChange={(e) => handleSolutionChange(e)}
                 value={cond.current_solution}
               />
               <input
                 type="text"
                 className="physical_previous_illness"
                 disabled={!editingMode}
-                onChange={(e) =>
-                  setPhysicalInfo({
-                    ...physicalInfo,
-                    previous_illness: e.target.value,
-                  })
-                }
+                id={cond.id}
+                onChange={(e) => handlePreviousChange(e)}
                 value={cond.previous_illness}
               />
             </div>
           );
         })}
       </div>
-      <div className="add_left_school">
+      <div 
+        className="add_left_school"
+        onClick={() => addNewField(current_id, physicalInfo)}
+        >
         <div className="surround_border">
           <FiPlus size={20} />
         </div>

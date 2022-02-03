@@ -9,6 +9,7 @@ import StudentsBoard from "./components/class_teacher/student_information/Studen
 import StudentSelect from "./components/class_teacher/student_information/StudentSelect";
 import Login from "./auth/Login"
 import CreateAccount from "./auth/CreateAccount"
+import AdminDashboard from "./components/admin/AdminDashboard";
 import { upddateData } from "./store/actions/studentDataActions/schoolsAttendedActions"
 import {
   collection,
@@ -141,6 +142,7 @@ const App = (props) => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/students_board" element={<StudentsBoard studentsBoardData={studentsBoardData} />} />
           <Route path="/students_select" element={<StudentSelect />} />
+          <Route path="/admin_dashboard" element={<AdminDashboard />} />
         </Routes>
         {/* <button onClick={() => addNew()}>CLICK CLICK</button> */}
       </div>

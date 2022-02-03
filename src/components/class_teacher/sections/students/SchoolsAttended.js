@@ -22,6 +22,10 @@ const SchoolsAttended = ({
   shiftEditingMode,
 }) => {
 
+  const current_id = selectedStudent.student_id
+
+  console.log("My IDENTITY", current_id)
+
   ///////////////////////////////////////////////////////////////
   const [fromData, setfromData] = useState([]);
   
@@ -30,7 +34,7 @@ const SchoolsAttended = ({
     let unmounted = false
     
       onSnapshot(collection(db, "schools_attended"),(snapshot) => {
-            console.log("From Firebase",snapshot.docs.map((doc) => doc.data()));
+            //console.log("From Firebase",snapshot.docs.map((doc) => doc.data()));
             let tempData = snapshot.docs.map((doc) => doc.data())
             if(!unmounted) {
             setfromData([
@@ -44,7 +48,29 @@ const SchoolsAttended = ({
         
   },[])
 
-  useEffect(() => { console.log("From data now", fromData) }, [fromData])
+  const current_data = fromData.find(sin => sin.std_id === current_id)
+
+  useEffect(() => { console.log("From data now", current_data) }, [fromData])
+
+  useEffect(() => {
+    current_data && setLeavingInfo({
+      std_id: current_data.std_id,
+    compulsory: {
+      exempted: current_data.exemption_from_compulsory_education,
+      date: {
+        month: current_data.date.month,
+        day: current_data.date.day,
+        year: current_data.date.year,
+      },
+    },
+    ageOnInitial: current_data.age_on_initial_entry_to_school,
+    schoolsLeft: [
+      ...current_data.schools_details
+    ],
+    })
+  }, [fromData])
+
+  
 
   // useEffect(() => {
   //   console.log("From data here", fromData)
@@ -70,15 +96,59 @@ const SchoolsAttended = ({
   //     //studentSchools.exemption_from_compulsory_education ? "yes" : "no"
   // }, [fromData])
 
-  const updateSchoolsAttendedFirebase = async(cur_id, payload) => {
+  const updateSchoolsAttendedFirebase = async(cur_id, data) => {
+    const payload = {
+      std_id: current_id,
+      exemption_from_compulsory_education: data.compulsory.exempted,
+      date: {
+        month: data.compulsory.date.month,
+        day: data.compulsory.date.day,
+        year: data.compulsory.date.year,
+      },
+    age_on_initial_entry_to_school: data.ageOnInitial,
+    schools_details: [
+      ...data.schoolsLeft
+    ],
+    }
     const docRef = doc(db, "schools_attended", cur_id);
     await setDoc(docRef, payload);
     alert("Data updated successfully")
+    console.log("My payload", payload)
+  }
+
+  const schoolsAttendedNewSchool = async(cur_id, data) => {
+    const payload = {
+      std_id: current_id,
+      exemption_from_compulsory_education: data.compulsory.exempted,
+      date: {
+        month: data.compulsory.date.month,
+        day: data.compulsory.date.day,
+        year: data.compulsory.date.year,
+      },
+    age_on_initial_entry_to_school: data.ageOnInitial,
+    schools_details: [
+      ...data.schoolsLeft,
+      {id: uuidv4(),
+        admission_no: "",
+        name_of_school: "",
+        medium: "",
+        date_of_admission: "",
+        grade_of_admission: "8",
+        date_of_departure: "",
+        grade_of_departure: "",}
+    ],
+    }
+    const docRef = doc(db, "schools_attended", cur_id);
+    await setDoc(docRef, payload);
+    alert("Data updated successfully")
+    console.log("My payload", payload)
   }
   ///////////////////////////////////////////////////////////////
-  const studentSchools = schoolsAttendedData.find(
-    (sin) => sin.std_id === selectedStudent.student_id
-  );
+
+  ////////////////REPLACED WITH BETTER ALGORITHM////////////////
+  // const studentSchools = schoolsAttendedData.find(
+  //   (sin) => sin.std_id === selectedStudent.student_id
+  // );
   
 
   const [exemptChoice, setExemptChoice] = useState({
@@ -123,26 +193,26 @@ const SchoolsAttended = ({
   };
 
   const [leavingInfo, setLeavingInfo] = useState({
-    std_id: null,
+    std_id: "",
     compulsory: {
-      exempted: null,
+      exempted: "",
       date: {
-        month: null,
-        day: null,
-        year: null,
+        month: "",
+        day: "",
+        year: "",
       },
     },
-    ageOnInitial: null,
+    ageOnInitial: "",
     schoolsLeft: [
       {
-        id: null,
-        admission_no: null,
-        name_of_school: null,
-        medium: null,
-        date_of_admission: null,
-        grade_of_admission: null,
-        date_of_departure: null,
-        grade_of_departure: null,
+        id: "",
+        admission_no: "",
+        name_of_school: "",
+        medium: "",
+        date_of_admission: "",
+        grade_of_admission: "",
+        date_of_departure: "",
+        grade_of_departure: "",
       },
     ],
   });
@@ -299,7 +369,20 @@ const SchoolsAttended = ({
     })
   } 
 
-  useEffect(() => console.log("This is it:",leavingInfo),[leavingInfo])
+  useEffect(() => {
+    console.log("This is it:",leavingInfo)
+    if(leavingInfo.compulsory.exempted === true) {
+      setExemptChoice({
+        yes: true,
+        no: false
+      })
+    } else if(leavingInfo.compulsory.exempted === false) {
+      setExemptChoice({
+        yes: false,
+        no: true
+      })
+    }
+  },[leavingInfo])
 
   return (
     <div className="instructions_container">
@@ -325,7 +408,7 @@ const SchoolsAttended = ({
             style={editingMode ? styles.selected : styles.not_selected}
             onClick={() => {
               shiftEditingMode("not_editing")
-              updateSchoolsAttendedFirebase("af4b1efc-3cba-4f0e-ae37-78ef30c3fbeb", leavingInfo)
+              updateSchoolsAttendedFirebase(current_id, leavingInfo)
             }}
           >
             Save changes
@@ -613,7 +696,9 @@ const SchoolsAttended = ({
           );
         })}
       </div>
-      <div className="add_left_school">
+      <div 
+          className="add_left_school" 
+          onClick={() => schoolsAttendedNewSchool(current_id, leavingInfo)}>
         <div className="surround_border">
           <FiPlus size={20} />
         </div>

@@ -1,9 +1,9 @@
 const currentlyLoggedIn = {
   userInfo: {
     userID: "P28A4",
-    name: "Roman Malews",
+    name: "Jake Doman",
     email: "proxyserver7798@gmail.com",
-    userType: "class_teacher",
+    userType: "admin",
   },
   classes: [
     {

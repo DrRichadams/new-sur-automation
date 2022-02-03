@@ -6,7 +6,7 @@ import CreateSuccess from "./CreateSuccess"
 
 const CreateAccount = () => {
 
-    const [ isDone, setIsDone ] = React.useState(true)
+    const [ isDone, setIsDone ] = React.useState(false)
 
     return (
         <div className="create_account_container">

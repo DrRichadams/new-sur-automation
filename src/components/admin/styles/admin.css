@@ -1,0 +1,41 @@
+.admin_dashboard_container{
+    background-color: #fff;
+    display: flex;
+}
+
+.admin_side_panel{
+    background-color: rgb(0, 0, 0);
+    min-width: 250px;
+    min-height: calc(100vh - 45px);
+    padding: 8px 12px;
+}
+
+.admin_right_contents{
+    padding: 8px 12px;    
+}
+
+.admin_school_name{
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.unassigned_btn,
+.classes_btn {
+    border: 1px solid #fff;
+    border-radius: 6px;
+    outline: none;
+    background-color: transparent;
+    color: #fff;
+    padding: 8px 12px;
+    display: block;
+    margin-bottom: 8px;
+    width: 230px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.unassigned_btn:hover,
+.classes_btn:hover {
+    opacity: .7;
+    letter-spacing: 2px;
+}

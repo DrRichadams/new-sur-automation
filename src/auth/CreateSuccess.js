@@ -23,7 +23,7 @@ const CreateSuccess = ({ isDone }) => {
                 className="return_to_login"
                 onClick={() => {
                     console.log("clicked")
-                    navigate("b/")
+                    navigate("/")
                 }}
                 >Return to login</button>
         </div>

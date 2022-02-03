@@ -47,7 +47,7 @@ const Identification = ({
       setfinalizedData([
         ...temporaryData
       ])
-      console.log("We did it", temporaryData ,finalizedData)
+      //console.log("We did it", temporaryData ,finalizedData)
     }, [temporaryData])
 
   /////////////////////////////////////////////////////////
@@ -55,7 +55,7 @@ const Identification = ({
   /////////////////////////////////////////////////////////
 
   const { editingMode } = identificationReducer;
-  console.log("Testing store retrival", toggleEditingMode);
+  //console.log("Testing store retrival", toggleEditingMode);
   const userCurrentData = finalizedData.find(
     (sin) => sin.std_id === selectedStudent.student_id
   );
@@ -101,14 +101,14 @@ const Identification = ({
 
   const [personalDetails, setPersonalDetails] = useState({
     firstname: "",
-    othername: null,
-    surname: null,
-    identity_no: null,
-    gender: null,
+    othername: "",
+    surname: "",
+    identity_no: "",
+    gender: "",
     dob: {
-      month: 6,
-      day: 28,
-      year: 1998,
+      month: "",
+      day: "",
+      year: "",
     },
   });
   const [occupationOfParents, setOccupationOfParents] = useState({
@@ -128,33 +128,104 @@ const Identification = ({
     home_language: null,
   });
 
-
-  const updateFirestoreData = async (cur_id) => {
-    const docRef = doc(db, "identification", cur_id);
-    let payload = {
-      std_id: selectedStudent.student_id,
-      name: personalDetails.firstname,
-      other: personalDetails.othername,
-      surname: personalDetails.surname,
-      identity_number: personalDetails.identity_no,
-      residential_address: "",
-      postal_address: "", 
-      gender: personalDetails.gender,
-      name_of_guardian: "",
+  const [ frameData, setFrameData ] = useState({
+    personalDetails: {
+      firstname: "",
+      othername: "",
+      surname: "",
+      identity_no: "",
+      gender: "",
+      dob: {
+        month: "",
+        day: "",
+        year: "",
+      },
+    },
+    occupationOfParents: {
+      father: "",
+      mother: "",
+      name_of_father: "",
       name_of_mother: "",
-      occupation_of_guardian: "",
-      occupation_of_mother: "",
+    },
+    contactAddresses: {
+      residential_address: "",
+      postal_address: "",
       home_phone: "",
       business_phone: "",
+    },
+    culture: {
       church: "",
       home_language: "",
-      dob: {
-        month: personalDetails.dob.month,
-        day: personalDetails.dob.day,
-        year: personalDetails.dob.year,
+    },
+  })
+
+  useEffect(() => {
+    setFrameData({
+      personalDetails: {
+        firstname: personalDetails.firstname,
+        othername: personalDetails.othername,
+        surname: personalDetails.surname,
+        identity_no: personalDetails.identity_no,
+        gender: personalDetails.gender,
+        dob: {
+          month: personalDetails.dob.month,
+          day: personalDetails.dob.day,
+          year: personalDetails.dob.year,
+        },
       },
+
+      occupationOfParents: {
+        father: occupationOfParents.father,
+        mother: occupationOfParents.mother,
+        name_of_father: occupationOfParents.name_of_father,
+        name_of_mother: occupationOfParents.name_of_mother,
+      },
+
+      contactAddresses: {
+        residential_address: contactAddresses.residential_address,
+        postal_address: contactAddresses.postal_address,
+        home_phone: contactAddresses.home_phone,
+        business_phone: contactAddresses.business_phone,
+      },
+
+      culture: {
+        church: culture.church,
+        home_language: culture.home_language,
+      },
+    })
+  }, [ personalDetails, occupationOfParents, contactAddresses, culture ])
+
+
+  const updateFirestoreData = async (cur_id, data) => {
+    const docRef = doc(db, "identification", cur_id);
+    let payload = {
+      std_id: selectedStudent.student_id, 
+      name: data.personalDetails.firstname,
+      other: data.personalDetails.othername,
+      surname: data.personalDetails.surname,
+      identity_number: data.personalDetails.identity_no,
+      gender: data.personalDetails.gender,
+      dob: {
+        month: data.personalDetails.dob.month,
+        day: data.personalDetails.dob.day,
+        year: data.personalDetails.dob.year,
+      },
+
+      residential_address: data.contactAddresses.residential_address,
+      postal_address: data.contactAddresses.postal_address,
+      home_phone: data.contactAddresses.home_phone,
+      business_phone: data.contactAddresses.business_phone,
+      
+      name_of_guardian: data.occupationOfParents.name_of_father,
+      name_of_mother: data.occupationOfParents.name_of_mother,
+      occupation_of_guardian: data.occupationOfParents.father,
+      occupation_of_mother: data.occupationOfParents.mother,
+      church: data.culture.church,
+      home_language: data.culture.home_language,
     }
     await setDoc(docRef, payload);
+
+    console.log("received data", cur_id, data)
   }
 
   return (
@@ -181,7 +252,7 @@ const Identification = ({
             style={{ display: editingMode ? "block" : "none" }}
             onClick={() => {
               toggleEditingMode("not_editing");
-              updateFirestoreData(selectedStudent.student_id);
+              updateFirestoreData(selectedStudent.student_id, frameData);
               console.log("sending function triggered");
             }}
           >
@@ -298,6 +369,7 @@ const Identification = ({
                     setPersonalDetails({
                       ...personalDetails,
                       dob: {
+                        ...personalDetails.dob,
                         month: e.target.value,
                       },
                     });
@@ -317,6 +389,7 @@ const Identification = ({
                     setPersonalDetails({
                       ...personalDetails,
                       dob: {
+                        ...personalDetails.dob,
                         day: e.target.value,
                       },
                     });
@@ -336,6 +409,7 @@ const Identification = ({
                     setPersonalDetails({
                       ...personalDetails,
                       dob: {
+                        ...personalDetails.dob,
                         year: e.target.value,
                       },
                     });
