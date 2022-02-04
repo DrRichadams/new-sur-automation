@@ -1,7 +1,16 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
-import { v4 as uuidv4 } from 'uuid';
 import { FiAlertTriangle, FiAlertCircle, FiChevronLeft, FiChevronRight } from "react-icons/fi"
+import {signup} from "../firebase"
+import db from "../firebase"
+import {
+    collection,
+    onSnapshot,
+    doc,
+    setDoc,
+    getDocs,
+  } from "firebase/firestore";
+  import { v4 as uuidv4 } from 'uuid';
 
 const CreateDetails = ({ isDone, setIsDone }) => {
 
@@ -24,6 +33,7 @@ const CreateDetails = ({ isDone, setIsDone }) => {
         new_password: "",
         confirm_password: "",
     })
+
 
     const collectorManager = (e) => {
         if(e.target.value === "gender") {
@@ -59,9 +69,15 @@ const CreateDetails = ({ isDone, setIsDone }) => {
                         ...errorState,
                         new_password: "Your passwords do not match, try again!"
                     })
+                } else if (inputCollector.new_password.length < 8) {
+                    setErrorState({
+                        ...errorState,
+                        new_password: "Your password must be at least 8 characters long!"
+                    })
                 } else {
                     console.log("Succeded")
-                    setIsDone(true)
+                    handleSignup()
+                    //setIsDone(true)
                 }
             }
         }
@@ -69,19 +85,47 @@ const CreateDetails = ({ isDone, setIsDone }) => {
 
     React.useEffect(() => { console.log("My collection",inputCollector) }, [inputCollector])
 
+    const in_session_id = uuidv4()
+
     const payload_firestore = {
-        user_id: uuidv4(),
+        user_id: in_session_id,
         name: inputCollector.name,
         surname: inputCollector.surname,
         email: inputCollector.email,
         gender: inputCollector.gender,
-        password: inputCollector.new_password,
-        userType: "class_teacher",
+        //password: inputCollector.new_password,
+        userType: "teacher",
         class: "",
-        isAllowed: false,
+        hasAcess: false,
     }
 
     console.log("Ten rings", payload_firestore)
+
+    ////////////////////////ADD USER TO FIRESTORE///////////////////////////////
+
+    const addNewUser = async(data) => {
+        const payload = {
+          ...data
+        }
+        const docRef = doc(db, "zx_users", in_session_id);
+        await setDoc(docRef, payload);
+        //alert("Data updated successfully")
+        console.log("My payload", payload)
+      }
+
+      const [ isLoading, setisLoading ] = React.useState(false)
+
+      async function handleSignup() {
+        try{
+            setisLoading(true)
+            await signup(inputCollector.email, inputCollector.new_password)
+            addNewUser(payload_firestore)
+            setIsDone(true)
+        } catch{
+            setIsDuplicate(true)
+        }
+        setisLoading(false)
+    }
 
     return(
         <div className="create_details_container" style={{ display: isDone ? "none":"block" }}>
@@ -95,6 +139,7 @@ const CreateDetails = ({ isDone, setIsDone }) => {
                 <button 
                     className="error_box_try_again_btn"
                     onClick={() => {
+                        setisLoading(false)
                         setTimeout(() => {
                             setIsDuplicate(false)
                         }, 500)
@@ -194,7 +239,7 @@ const CreateDetails = ({ isDone, setIsDone }) => {
                         />
                     <div className="create_details_btns">
                         <div className="cancel_create" onClick={() => navigate("/")}>Cancel</div>
-                        <button className="aprove_create">Create</button>
+                        <button className="aprove_create" disabled={isLoading}>{ isLoading ? "Working":"Create" }</button>
                     </div>
                 </form>
         </div>

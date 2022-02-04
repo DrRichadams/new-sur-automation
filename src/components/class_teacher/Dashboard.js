@@ -6,10 +6,10 @@ import { FiChevronRight, FiChevronDown } from "react-icons/fi";
 import "../../app.css";
 import Instructions from "./sections/information/Instructions";
 import Observations from "./sections/information/Observations";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-class Dashboard extends Component {
-  state = {
+const Dashboard = (props) => {
+  const [ state, setState ] = React.useState({
     infoBtn_sect: {
       colorSwitch: "#fff)",
       backgroundColorSwitch: "transparent",
@@ -18,13 +18,13 @@ class Dashboard extends Component {
       colorSwitch: "#fff)",
       backgroundColorSwitch: "transparent",
     },
-  };
-  render() {
-    const { infoBtn, stdBtn, subBtns } = this.props.classTeacher;
-    const { toggleTwo, toggleMany } = this.props;
+  });
+    const { infoBtn, stdBtn, subBtns } = props.classTeacher;
+    const { toggleTwo, toggleMany } = props;
     const { infoType, stdType } = subBtns;
-    //console.log(this.props);
+    //console.log(props);
     console.log("needed", infoType);
+    const Navigate = useNavigate()
     return (
       <div className="class_teacher_dashboard_container">
         <div className="left_dashboard_menu">
@@ -40,12 +40,12 @@ class Dashboard extends Component {
               style={{
                 backgroundColor: infoBtn
                   ? "#fff"
-                  : this.state.backgroundColorSwitch,
-                color: infoBtn ? "rgb(36,40,80)" : this.state.colorSwitch,
+                  : state.backgroundColorSwitch,
+                color: infoBtn ? "rgb(36,40,80)" : state.colorSwitch,
               }}
               onMouseOver={() => {
-                this.setState({
-                  ...this.state,
+                setState({
+                  ...state,
                   infoBtn_sect: {
                     backgroundColorSwitch: "#fff",
                     colorSwitch: "rgb(36,40,80)",
@@ -53,8 +53,8 @@ class Dashboard extends Component {
                 });
               }}
               onMouseOut={() => {
-                this.setState({
-                  ...this.state,
+                setState({
+                  ...state,
                   infoBtn_sect: {
                     backgroundColorSwitch: "transparent",
                     colorSwitch: "#fff",
@@ -98,43 +98,18 @@ class Dashboard extends Component {
                 </div>
               </div>
             </div>
-            <Link
-              to="/students_select"
+            {/* to="/students_select"  to="/students_board"*/}
+            <div
+              
               className="students_btn side_btn"
-              onClick={(e) => toggleTwo("--students--")}
-              style={{
-                textDecoration: "none",
-                backgroundColor: stdBtn
-                  ? "#fff"
-                  : this.state.backgroundColorSwitch,
-                color: stdBtn ? "rgb(36,40,80)" : this.state.colorSwitch,
-              }}
-              onMouseOver={() => {
-                this.setState({
-                  ...this.state,
-                  stdBtn_sect: {
-                    backgroundColorSwitch: "#fff",
-                    colorSwitch: "rgb(36,40,80)",
-                  },
-                });
-              }}
-              onMouseOut={() => {
-                this.setState({
-                  ...this.state,
-                  stdBtn_sect: {
-                    backgroundColorSwitch: "transparent",
-                    colorSwitch: "#fff",
-                  },
-                });
-              }}
-            >
+              onClick={(e) => Navigate("/students_board")}>
               <p>Classes</p>
               {stdBtn ? (
                 <FiChevronDown size={20} className="std_icon" />
               ) : (
                 <FiChevronRight size={20} className="std_icon" />
               )}
-            </Link>
+            </div>
           </div>
         </div>
         <div className="details_contents">
@@ -150,7 +125,6 @@ class Dashboard extends Component {
         </div>
       </div>
     );
-  }
 }
 
 const mapStateToProps = (state) => {

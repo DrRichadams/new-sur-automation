@@ -6,7 +6,7 @@ import { toggleEditing } from "../../../../store/actions/studentDataActions/scho
 import db from "../../../../firebase"
 import {
   collection,
-  onSnapshot,
+  onSnapshot, 
   doc,
   setDoc,
   getDocs,

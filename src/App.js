@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { connect } from "react-redux";
-import db from "./firebase";
+import db, { signup, useAuth, logout } from "./firebase";
 import MainNavTop from "./components/navigation/MainNavTop";
 import Dashboard from "./components/class_teacher/Dashboard";
 import StudentsBoard from "./components/class_teacher/student_information/StudentsBoard";
@@ -10,6 +10,7 @@ import StudentSelect from "./components/class_teacher/student_information/Studen
 import Login from "./auth/Login"
 import CreateAccount from "./auth/CreateAccount"
 import AdminDashboard from "./components/admin/AdminDashboard";
+import HasAccessControlPage from "./components/class_teacher/HasAccessControlPage";
 import { upddateData } from "./store/actions/studentDataActions/schoolsAttendedActions"
 import {
   collection,
@@ -21,6 +22,18 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 
 const App = (props) => {
+
+  const currentUse = useAuth()
+
+  async function handleLogout() {
+    try{
+      await logout()
+    } catch{
+      alert("Error!")
+    }
+  }
+
+  console.log("This is my real user: ", currentUse?.email)
 
   // useEffect(() => {
   //   localStorage.setItem("isLoggedIn", "false")
@@ -143,6 +156,7 @@ const App = (props) => {
           <Route path="/students_board" element={<StudentsBoard studentsBoardData={studentsBoardData} />} />
           <Route path="/students_select" element={<StudentSelect />} />
           <Route path="/admin_dashboard" element={<AdminDashboard />} />
+          <Route path="/no_access" element={<HasAccessControlPage />} />
         </Routes>
         {/* <button onClick={() => addNew()}>CLICK CLICK</button> */}
       </div>

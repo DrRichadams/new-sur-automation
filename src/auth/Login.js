@@ -1,11 +1,80 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"
 import { connect } from "react-redux"
 import "./styles/login.css"
 import { FiLock, FiUser, FiChevronRight } from "react-icons/fi"
 import { makeDisplay } from "../store/actions/navbarActions"
+import { login } from "../firebase"
+import db, { useAuth } from "../firebase"
+import {
+    collection,
+    onSnapshot, 
+    doc,
+    setDoc,
+    getDocs,
+  } from "firebase/firestore";
+  import { v4 as uuidv4 } from 'uuid';
 
 const Login = ({ changeDisplay }) => {
+
+    const currentUser = useAuth()
+
+    /////////////////////////////////////////////////////////////////////
+    /**////////////////////RETRIEVING USERS DATA////////////////////// */
+    /////////////////////////////////////////////////////////////////////
+    //.....................................................................//
+
+    // const [fromData, setfromData] = useState([]);
+  
+    // useEffect(() => {
+      
+    //   let unmounted = false
+      
+    //     onSnapshot(collection(db, "zx_users"),(snapshot) => {
+    //           //console.log("From Firebase",snapshot.docs.map((doc) => doc.data()));
+    //           let tempData = snapshot.docs.map((doc) => doc.data())
+    //           if(!unmounted) {
+    //           setfromData([
+    //               ...tempData
+    //           ])
+    //           }
+    //         }
+    //       )
+  
+    //       return () => unmounted = true
+          
+    // },[])
+  
+    // const current_data = currentUser && fromData.find(sin => sin.email === currentUser.email)
+
+    // useEffect(() => { current_data && console.log("Login data", fromData) }, [fromData])
+
+    //.....................................................................//
+
+    /////////////////////////////////////////////////////////////////////
+    /**////////////////////RETRIEVING USERS DATA////////////////////// */
+    /////////////////////////////////////////////////////////////////////
+
+    const [ isLoading, setisLoading ] = React.useState(false)
+
+    async function handleSignin(email, password) {
+      try{
+          setisLoading(true)
+          await login(email, password)
+          setErrorDisplay(false)
+          navigate("/no_access")
+        //   navigate("/dashboard")
+        //   navigate("/no_access")
+          //addNewUser(payload_firestore)
+          //setIsDone(true)
+      } catch{
+          //setIsDuplicate(true)
+          setErrorDisplay(true)
+      }
+      setisLoading(false)
+  }
+
+  //current_data && console.log("MY DATA ", current_data)
 
     const navigate = useNavigate()
 
@@ -27,16 +96,13 @@ const Login = ({ changeDisplay }) => {
         //changeDisplay("logged_in")
         localStorage.setItem("isLoggedIn", "true")
 
-        setTimeout(() => {
-            navigate("./dashboard")
-            window.location.reload(true)
-        }, 1000)
+        handleSignin(credentialInputs.username, credentialInputs.password)
         
     }
 
-    console.log("Dispatch action", changeDisplay)
+    //console.log("Dispatch action", changeDisplay)
 
-    React.useEffect(() => console.log("Credentials", credentialInputs), [credentialInputs])
+    //React.useEffect(() => console.log("Credentials", credentialInputs), [credentialInputs])
 
     return (
         <div className="login_container">
@@ -69,8 +135,8 @@ const Login = ({ changeDisplay }) => {
                         />
                 </div>
                 <div className="inputs_box_container">
-                    <button className="submit_btn" onClick={() => console.log("Logging in")}>
-                        <span>LOGIN</span>
+                    <button className="submit_btn" onClick={() => console.log("Logging in")} disabled={isLoading}>
+                        <span>{ isLoading? "VERIFYING DETAILS":"LOGIN" }</span>
                         <FiChevronRight size={20} className="icona"/>
                     </button>
                 </div>

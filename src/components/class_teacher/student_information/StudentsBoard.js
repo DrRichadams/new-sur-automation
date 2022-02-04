@@ -387,7 +387,7 @@ class StudentsBoard extends Component {
             <div className="students_listing">
               <div className="sl_header">
                 <Link
-                  to="/students_select"
+                  to="/dashboard"
                   className="back_to_student_select_btn"
                 >
                   <FiChevronLeft />

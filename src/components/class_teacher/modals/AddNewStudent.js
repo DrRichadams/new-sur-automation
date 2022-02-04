@@ -240,6 +240,76 @@ const AddNewStudent = ({ viewState, sliceInstance }) => {
     remark: "",
   }
 
+  const ship_scholastic_achievements = {
+    std_id: newStudentData.std_id,
+    primary: {
+      studentSubjectsList: [
+        {
+          id: uuidv4(),
+          subject_name: "",
+          sub_cols: {c1: "",c2: "",c3: "",c4: "",c5: "",c6: "",c7: "",c8: "",c9: "",c10: "",c11: "",}
+        },
+      ], 
+      yam: {
+        yam1: "placeholder",yam2: "",yam3: "",yam4: "",yam5: "",yam6: "", yam7: "",yam8: "",yam9: "",yam10: "",yam11: "",
+      }, 
+      gd: {
+        gd1: "placeholder",gd2: "",gd3: "",gd4: "",gd5: "",gd6: "",gd7: "",gd8: "",gd9: "",gd10: " ",gd11: " ",
+      }, 
+      log: {
+        log1: "placeholder",log2: "",log3: "",log4: "",log5: "",log6: "",log7: "",log8: "",log9: "",log10: "",log11: "",
+      }, 
+      eh: {
+        eh1: "placeholder",eh2: "",eh3: "",eh4: "",eh5: "",eh6: "",eh7: "",eh8: "",eh9: "",eh10: "",eh11: "",
+      }, 
+      asl: {
+        asl1: "placeholder",asl2: "",asl3: "",asl4: "",asl5: "",asl6: "",asl7: "",asl8: "",asl9: "",asl10: "",asl11: "",
+      }, 
+      asg: {
+        asg1: "placeholder",asg2: "",asg3: "",asg4: "",asg5: "",asg6: "",asg7: "",asg8: "",asg9: "",asg10: "",asg11: "",
+      }, 
+      pf: {
+        pf1: "placeholder",pf2: "",pf3: "",pf4: "",pf5: "",pf6: "",pf7: "",pf8: "",pf9: "",pf10: "",pf11: "",
+      }, 
+      sat: {
+        sat1: "placeholder",sat2: "",sat3: "",sat4: "",sat5: "",sat6: "",sat7: "",sat8: "",sat9: "",sat10: "",sat11: "",
+      },
+    },
+    secondary: { 
+      studentSubjectsList: [
+        {
+          id: uuidv4(),
+          subject_name: "",
+          sub_cols: {c1: "",c2: "",c3: "",c4: "",c5: "",c6: "",c7: "",c8: "",c9: "",c10: "",c11: "",}
+        },
+      ], 
+      yam: {
+        yam_s1: "placeholder",yam_s2: "",yam3: "",yam_s4: "",yam_s5: "",yam_s6: "", yam_s7: "",yam8: "",yam_s9: "",yam_s10: "",yam_s11: "",
+      }, 
+      gd: {
+        gd_s1: "placeholder",gd_s2: "",gd_s3: "",gd_s4: "",gd_s5: "",gd_s6: "",gd_s7: "",gd_s8: "",gd_s9: "",gd_s10: " ",gd_s11: " ",
+      }, 
+      log: {
+        log_s1: "placeholder",log_s2: "",log_s3: "",log_s4: "",log_s5: "",log_s6: "",log_s7: "",log_s8: "",log_s9: "",log_s10: "",log_s11: "",
+      }, 
+      eh: {
+        eh_s1: "placeholder",eh_s2: "",eh_s3: "",eh_s4: "",eh_s5: "",eh_s6: "",eh_s7: "",eh_s8: "",eh_s9: "",eh_s10: "",eh_s11: "",
+      }, 
+      asl: {
+        asl_s1: "placeholder",asl_s2: "",asl_s3: "",asl_s4: "",asl_s5: "",asl_s6: "",asl_s7: "",asl_s8: "",asl_s9: "",asl_s10: "",asl_s11: "",
+      }, 
+      asg: {
+        asg_s1: "placeholder",asg_s2: "",asg_s3: "",asg_s4: "",asg_s5: "",asg_s6: "",asg_s7: "",asg_s8: "",asg_s9: "",asg_s10: "",asg_s11: "",
+      }, 
+      pf: {
+        pf_s1: "placeholder",pf_s2: "",pf_s3: "",pf_s4: "",pf_s5: "",pf_s6: "",pf_s7: "",pf_s8: "",pf_s9: "",pf_s10: "",pf_s11: "",
+      }, 
+      sat: {
+        sat_s1: "placeholder",sat_s2: "",sat_s3: "",sat_s4: "",sat_s5: "",sat_s6: "",sat_s7: "",sat_s8: "",sat_s9: "",sat_s10: "",sat_s11: "",
+      },
+     },
+  }
+
 
   //////////////////////////////////////////////////////////
   /**                  DATABASE TEMPLATING                 */
@@ -268,7 +338,7 @@ const AddNewStudent = ({ viewState, sliceInstance }) => {
       const docRefGeneralInformation = doc(db, "general_information", newStudentData.std_id);
       const docRefGeneralRemarks = doc(db, "general_remarks", newStudentData.std_id);
       ////////////////////////REFS///////////////////
-      const payload = {...newStudentData};
+      //const payload = {...newStudentData};
       await setDoc(docRefIdentification, newStudentData);
       await setDoc(docRefSchools_Attended, ship_schools_attended);
       await setDoc(docRefPhysicalCondition, ship_physical_condition);
@@ -279,6 +349,7 @@ const AddNewStudent = ({ viewState, sliceInstance }) => {
       await setDoc(docRefScholasticsAchievements, ship_general_remarks); ///TEMPORARY DATA
       await setDoc(docRefGeneralInformation, ship_general_information);
       await setDoc(docRefGeneralRemarks, ship_general_remarks);
+      await setDoc(docRefScholasticsAchievements, ship_scholastic_achievements);
       ///////////////////////////////
       alert("Student added successfully")
       window.location.reload(true)
