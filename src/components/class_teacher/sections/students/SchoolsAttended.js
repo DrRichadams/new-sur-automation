@@ -27,9 +27,9 @@ const SchoolsAttended = ({
   console.log("My IDENTITY", current_id)
 
   ///////////////////////////////////////////////////////////////
-  const [fromData, setfromData] = useState([]);
-  
-  useEffect(() => {
+  const [fromData, setfromData] = useState([]); 
+
+  useEffect(() => { 
     
     let unmounted = false
     
@@ -114,7 +114,7 @@ const SchoolsAttended = ({
     await setDoc(docRef, payload);
     alert("Data updated successfully")
     console.log("My payload", payload)
-  }
+  } 
 
   const schoolsAttendedNewSchool = async(cur_id, data) => {
     const payload = {

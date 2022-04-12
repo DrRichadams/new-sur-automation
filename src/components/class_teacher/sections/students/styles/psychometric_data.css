@@ -5,7 +5,7 @@
   grid-template-columns: repeat(14, 1fr);
   grid-template-areas: "date date name name name grade tester tester rewards rewards rewards rewards rewards rewards";
 }
-
+ 
 .psychometric_data_titles div {
   color: #fff;
   font-size: 13px;
@@ -48,6 +48,7 @@
 .input_pych_date {
   width: calc(14.2857% - 2px);
   margin-right: 2px;
+  margin-bottom: 5px;
 }
 .input_pych_name {
   width: calc(21.42857% - 2px);

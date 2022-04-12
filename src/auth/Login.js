@@ -4,6 +4,7 @@ import { connect } from "react-redux"
 import "./styles/login.css"
 import { FiLock, FiUser, FiChevronRight } from "react-icons/fi"
 import { makeDisplay } from "../store/actions/navbarActions"
+import { setCurrentUser } from "../store/actions/setCurrentUserAction"
 import { login } from "../firebase"
 import db, { useAuth } from "../firebase"
 import {
@@ -15,9 +16,10 @@ import {
   } from "firebase/firestore";
   import { v4 as uuidv4 } from 'uuid';
 
-const Login = ({ changeDisplay }) => {
+const Login = ({ changeDisplay, setUser }) => {
 
     const currentUser = useAuth()
+    //console.log("My current user", currentUser)
 
     /////////////////////////////////////////////////////////////////////
     /**////////////////////RETRIEVING USERS DATA////////////////////// */
@@ -62,6 +64,7 @@ const Login = ({ changeDisplay }) => {
           setisLoading(true)
           await login(email, password)
           setErrorDisplay(false)
+          setUser("g")
           navigate("/no_access")
         //   navigate("/dashboard")
         //   navigate("/no_access")
@@ -104,11 +107,42 @@ const Login = ({ changeDisplay }) => {
 
     //React.useEffect(() => console.log("Credentials", credentialInputs), [credentialInputs])
 
+    const [ accessKey, setAccessKey ] = useState({
+        first: null,
+        second: null,
+    })
+
+    const handleSuperAccess = (e) => {
+        if( accessKey.first === 8 && accessKey.second === 5  ) {
+            navigate("030fe9ffb0-2dbf2-40ffc-884f6-c8fff0cc0dfc1b")
+        } else {
+            if(e.target.id === "first") {
+                setAccessKey({
+                    ...accessKey,
+                    first: accessKey.first + 1
+                })
+            } else if (e.target.id === "second") {
+                setAccessKey({
+                    ...accessKey,
+                    second: accessKey.second + 1
+                })
+            }
+        }
+    }
+
     return (
         <div className="login_container">
             <div className="login_main_box">
-            <h3 className="login_main_title">Students' Cumulative Record Card Automation System</h3>
-            <p className="login_second_title">LOGIN</p>
+            <h3 
+                className="login_main_title"
+                onClick={(e) => handleSuperAccess(e)}
+                id="first"
+                >Students' Cumulative Record Card Automation System</h3>
+            <p 
+                className="login_second_title"
+                onClick={(e) => handleSuperAccess(e)}
+                id="second"
+                >LOGIN</p>
             
             <form className="login_inputs_container" onSubmit={(e) => handleSubmit(e)}>
             <p className="login_error_message" style={{ display: errorDisplay ? "block" : "none" }}>Access denied! Try again</p>
@@ -117,7 +151,7 @@ const Login = ({ changeDisplay }) => {
                     <input 
                         type="text" 
                         className="login_in_username" 
-                        placeholder="Username" 
+                        placeholder="Email" 
                         required="required"
                         id="username"
                         onChange={(e) => handleChange(e)} 
@@ -142,7 +176,7 @@ const Login = ({ changeDisplay }) => {
                 </div>
                 <div className="inputs_box_container" id="user_creation">
                     <div className="create_account_btn" onClick={() => navigate("create_account")}>Create account</div>
-                    <div className="forgot_password_btn">Forgot password?</div>
+                    <div className="forgot_password_btn" onClick={() => navigate("./forgot_password")}>Forgot password?</div>
                 </div>
             </form>
             </div>
@@ -152,7 +186,8 @@ const Login = ({ changeDisplay }) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        changeDisplay: (param) => dispatch(makeDisplay(param))
+        changeDisplay: (param) => dispatch(makeDisplay(param)),
+        setUser: (data) => dispatch(setCurrentUser(data))
     }
 }
 

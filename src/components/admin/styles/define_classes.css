@@ -1,0 +1,167 @@
+.define_classes_container {
+    
+}
+
+.define_main_titles {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.main_titles {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 1000px;
+}
+
+.select_grade_container {
+    display: flex;
+}
+
+.select_grade_title_main {
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.grade_box {
+    width: 40px;
+    height: 40px;
+    /* background-color: rgba(36, 40, 80, 0.699); */
+    color: orangered;
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 12px;
+    border: 2px solid rgb(36, 40, 80);
+    border-radius: 5px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.grade_box:hover{
+    opacity: .7;
+    transform: scale(1.2);
+}
+
+.current_grade_title {
+    border-left: 8px solid rgb(1, 161, 231);
+    margin-top: 20px;
+    margin-bottom: 12px;
+    padding: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: #f5f5f5;
+}
+
+.class_item {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    background-color: #c9c9c9;
+    margin-right: 15px;
+    margin-bottom: 12px;
+    padding: 5px;
+    border-radius: 6px;
+    min-height: 180px;
+}
+
+.class_display{
+    padding: 8px;
+    margin-bottom: 6px;text-transform: uppercase;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 6px;
+    outline: none;
+    border: 1px solid rgb(36, 40, 80);
+}
+
+.class_item  button {
+    border: none;
+    margin: 4px 0;
+    padding: 10px;
+    text-transform: uppercase;
+    transition: .5s;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.class_item  button:hover {
+    letter-spacing: 1px;
+    opacity: .5;
+}
+
+.enable_editing_class {
+    background-color: rgb(1, 114, 163);
+    color: #f5f5f5;
+}
+
+.save_changes {
+    background-color: rgb(0, 95, 0);
+    color: #f5f5f5;
+}
+
+.delete_class {
+    background-color: rgb(173, 50, 5);
+    color: #f5f5f5;
+}
+
+.class_listing {
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: space-around; */
+    margin-top: 6px;
+}
+
+.input_class,
+.add_class_btn {
+    padding: 8px;
+    border: none;
+    outline: none;
+    height: 40px;
+    margin-bottom: 12px;
+}
+
+.input_class {
+    background-color: rgb(145, 145, 145);
+    width: 300px;
+    text-transform: uppercase;
+    font-weight: bold;
+    /* letter-spacing: 2px; */
+    border-radius: 5px 0 0 5px;
+    font-size: 12px;
+}
+
+.add_class_btn {
+    background-color: rgb(1, 114, 163);
+    color: #fff;
+    text-transform: uppercase;
+    padding: 8px 20px;
+    transition: 0.5s;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
+}
+.add_class_btn:hover {
+    background-color: rgb(1, 161, 231);
+    letter-spacing: 1px;
+}
+
+.instantiate_grades {
+    border: 1px solid rgb(185, 53, 5);
+    background-color: rgb(185, 53, 5);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: 0.5s;
+    cursor: pointer;
+    width: 200px;
+}
+
+.instantiate_grades:hover{
+    background-color: transparent;
+    color: #111;
+    letter-spacing: 1px;
+}

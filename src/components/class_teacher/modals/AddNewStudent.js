@@ -5,7 +5,7 @@ import { FiPlus, FiCheckCircle } from "react-icons/fi";
 import { triggerNewStudent } from "../../../store/actions/studentBoardActions"
 import "./styles/add_new_student.css";
 import { v4 as uuidv4 } from 'uuid';
-import db from "../../../firebase"
+import db, { useAuth } from "../../../firebase"
 import {
   collection,
   onSnapshot,
@@ -15,6 +15,49 @@ import {
 } from "firebase/firestore";
 
 const AddNewStudent = ({ viewState, sliceInstance }) => {
+
+  const current_user = useAuth()
+
+  /////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////
+  const [fromData, setfromData] = useState([]); 
+
+  useEffect(() => { 
+    
+    let unmounted = false
+    
+      onSnapshot(collection(db, "zx_users"),(snapshot) => {
+            //console.log("From Firebase",snapshot.docs.map((doc) => doc.data()));
+            let tempData = snapshot.docs.map((doc) => doc.data())
+            if(!unmounted) {
+            setfromData([
+                ...tempData
+            ])
+            }
+          }
+        )
+
+        return () => unmounted = true
+        
+  },[])
+
+  let current_user_data
+  try {
+    current_user_data = fromData.find(sin => sin.email === current_user.email)
+  } 
+  catch(err) {}
+
+  useEffect(() => { current_user_data && console.log("Auth user data", current_user_data.class) }, [fromData])
+
+  useEffect(() => {
+    current_user_data && setnewStudentData({
+      ...newStudentData,
+      class: current_user_data.class
+    })
+  }, [fromData])
+  /////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////
+
   const [newStudentData, setnewStudentData] = useState({
     ///////////////////////////////
       std_id: uuidv4().toString(),
@@ -27,7 +70,7 @@ const AddNewStudent = ({ viewState, sliceInstance }) => {
       gender: "",
       name_of_guardian: "",
       name_of_mother: "",
-      occupation_of_guardian: "",
+      occupation_of_guardian: "", 
       occupation_of_mother: "",
       home_phone: "",
       business_phone: "",
@@ -38,6 +81,7 @@ const AddNewStudent = ({ viewState, sliceInstance }) => {
         day: "",
         year: "",
       },
+      class: "",
    
   });
 
@@ -89,34 +133,10 @@ const AddNewStudent = ({ viewState, sliceInstance }) => {
   const ship_schools_attended = {
     std_id: newStudentData.std_id,
     exemption_from_compulsory_education: false,
-    date: {
-      month: "",
-      day: "",
-      year: "",
-    },
+    date: { month: "", day: "", year: "", },
     age_on_initial_entry_to_school: "",
     schools_details: [
       {
-        id: uuidv4(),
-        admission_no: "",
-        name_of_school: "",
-        medium: null,
-        date_of_admission: "",
-        grade_of_admission: "8",
-        date_of_departure: "",
-        grade_of_departure: "",
-      },
-      {
-        id: uuidv4(),
-        admission_no: "",
-        name_of_school: "",
-        medium: null,
-        date_of_admission: "",
-        grade_of_admission: "",
-        date_of_departure: "",
-        grade_of_departure: "", 
-      },
-    {
         id: uuidv4(),
         admission_no: "",
         name_of_school: "",
@@ -140,28 +160,12 @@ const AddNewStudent = ({ viewState, sliceInstance }) => {
         current_solution: "",
         previous_illness: "",
       },
-      {
-        id: uuidv4(),
-        date: "",
-        general_health: "",
-        problem: "",
-        current_solution: "",
-        previous_illness: "",
-      },
     ],
   }
 
   const ship_psychometric_data = {
     std_id: newStudentData.std_id,
     psychData: [
-      {
-        id: uuidv4(),
-        date: "",
-        name_of_test: "",
-        grade: "",
-        tester: "",
-        remarks: "",
-      },
       {
         id: uuidv4(),
         date: "",
@@ -247,66 +251,66 @@ const AddNewStudent = ({ viewState, sliceInstance }) => {
         {
           id: uuidv4(),
           subject_name: "",
-          sub_cols: {c1: "",c2: "",c3: "",c4: "",c5: "",c6: "",c7: "",c8: "",c9: "",c10: "",c11: "",}
+          sub_cols: [{id: 1, c: ""},{id: 2, c: ""},{id: 3, c: ""},{id: 4, c: ""},{id: 5, c: ""},{id: 6, c: ""},{id: 7, c: ""},{id: 8, c: ""},{id: 9, c: ""},{id: 10, c: ""},{id: 11, c: ""}]
         },
       ], 
-      yam: {
-        yam1: "placeholder",yam2: "",yam3: "",yam4: "",yam5: "",yam6: "", yam7: "",yam8: "",yam9: "",yam10: "",yam11: "",
-      }, 
-      gd: {
-        gd1: "placeholder",gd2: "",gd3: "",gd4: "",gd5: "",gd6: "",gd7: "",gd8: "",gd9: "",gd10: " ",gd11: " ",
-      }, 
-      log: {
-        log1: "placeholder",log2: "",log3: "",log4: "",log5: "",log6: "",log7: "",log8: "",log9: "",log10: "",log11: "",
-      }, 
-      eh: {
-        eh1: "placeholder",eh2: "",eh3: "",eh4: "",eh5: "",eh6: "",eh7: "",eh8: "",eh9: "",eh10: "",eh11: "",
-      }, 
-      asl: {
-        asl1: "placeholder",asl2: "",asl3: "",asl4: "",asl5: "",asl6: "",asl7: "",asl8: "",asl9: "",asl10: "",asl11: "",
-      }, 
-      asg: {
-        asg1: "placeholder",asg2: "",asg3: "",asg4: "",asg5: "",asg6: "",asg7: "",asg8: "",asg9: "",asg10: "",asg11: "",
-      }, 
-      pf: {
-        pf1: "placeholder",pf2: "",pf3: "",pf4: "",pf5: "",pf6: "",pf7: "",pf8: "",pf9: "",pf10: "",pf11: "",
-      }, 
-      sat: {
-        sat1: "placeholder",sat2: "",sat3: "",sat4: "",sat5: "",sat6: "",sat7: "",sat8: "",sat9: "",sat10: "",sat11: "",
-      },
+      yam: [
+        {id: 1, yam: ""},{id: 2, yam: ""},{id: 3, yam: ""},{id: 4, yam: ""},{id: 5, yam: ""},{id: 6, yam: ""},  {id: 7, yam: ""},{id: 8, yam: ""},{id: 9, yam: ""},{id: 10, yam: ""},{id: 11,yam: ""},
+      ], 
+      gd: [
+        {id: 1, gd: ""},{id: 2, gd: ""},{id: 3, gd: ""},{id: 4, gd: ""},{id: 5, gd: ""},{id: 6, gd: ""},{id: 7, gd: ""},{id: 8, gd: ""},{id: 9, gd: ""},{id: 10, gd: ""},{id: 11,gd: ""},
+      ], 
+      log: [
+        {id: 1, log: ""},{id: 2, log: ""},{id: 3, log: ""},{id: 4, log: ""},{id: 5, log: ""},{id: 6, log: ""},{id: 7, log: ""},{id: 8, log: ""},{id: 9, log: ""},{id: 10, log: ""},{id: 11,log: ""},
+      ], 
+      eh: [
+        {id: 1, eh: ""},{id: 2, eh: ""},{id: 3, eh: ""},{id: 4, eh: ""},{id: 5, eh: ""},{id: 6, eh: ""},{id: 7, eh: ""},{id: 8, eh: ""},{id: 9, eh: ""},{id: 10, eh: ""},{id: 11,eh: ""},
+      ], 
+      asl: [
+        {id: 1, asl: ""},{id: 2, asl: ""},{id: 3, asl: ""},{id: 4, asl: ""},{id: 5, asl: ""},{id: 6, asl: ""},{id: 7, asl: ""},{id: 8, asl: ""},{id: 9, asl: ""},{id: 10, asl: ""},{id: 11,asl: ""},
+      ], 
+      asg: [
+        {id: 1, asg: ""},{id: 2, asg: ""},{id: 3, asg: ""},{id: 4, asg: ""},{id: 5, asg: ""},{id: 6, asg: ""},{id: 7, asg: ""},{id: 8, asg: ""},{id: 9, asg: ""},{id: 10, asg: ""},{id: 11,asg: ""},
+      ], 
+      pf: [
+        {id: 1, pf: ""},{id: 2, pf: ""},{id: 3, pf: ""},{id: 4, pf: ""},{id: 5, pf: ""},{id: 6, pf: ""},{id: 7, pf: ""},{id: 8, pf: ""},{id: 9, pf: ""},{id: 10, pf: ""},{id: 11,pf: ""},
+      ], 
+      sat: [
+        {id: 1, sat: ""},{id: 2, sat: ""},{id: 3, sat: ""},{id: 4, sat: ""},{id: 5, sat: ""},{id: 6, sat: ""},{id: 7, sat: ""},{id: 8, sat: ""},{id: 9, sat: ""},{id: 10, sat: ""},{id: 11,sat: ""},
+      ],
     },
     secondary: { 
       studentSubjectsList: [
         {
           id: uuidv4(),
           subject_name: "",
-          sub_cols: {c1: "",c2: "",c3: "",c4: "",c5: "",c6: "",c7: "",c8: "",c9: "",c10: "",c11: "",}
+          sub_cols: [{id: 1, c: ""},{id: 2, c: ""},{id: 3, c: ""},{id: 4, c: ""},{id: 5, c: ""},{id: 6, c: ""},{id: 7, c: ""},{id: 8, c: ""},{id: 9, c: ""},{id: 10, c: ""},{id: 11, c: ""}]
         },
       ], 
-      yam: {
-        yam_s1: "placeholder",yam_s2: "",yam3: "",yam_s4: "",yam_s5: "",yam_s6: "", yam_s7: "",yam8: "",yam_s9: "",yam_s10: "",yam_s11: "",
-      }, 
-      gd: {
-        gd_s1: "placeholder",gd_s2: "",gd_s3: "",gd_s4: "",gd_s5: "",gd_s6: "",gd_s7: "",gd_s8: "",gd_s9: "",gd_s10: " ",gd_s11: " ",
-      }, 
-      log: {
-        log_s1: "placeholder",log_s2: "",log_s3: "",log_s4: "",log_s5: "",log_s6: "",log_s7: "",log_s8: "",log_s9: "",log_s10: "",log_s11: "",
-      }, 
-      eh: {
-        eh_s1: "placeholder",eh_s2: "",eh_s3: "",eh_s4: "",eh_s5: "",eh_s6: "",eh_s7: "",eh_s8: "",eh_s9: "",eh_s10: "",eh_s11: "",
-      }, 
-      asl: {
-        asl_s1: "placeholder",asl_s2: "",asl_s3: "",asl_s4: "",asl_s5: "",asl_s6: "",asl_s7: "",asl_s8: "",asl_s9: "",asl_s10: "",asl_s11: "",
-      }, 
-      asg: {
-        asg_s1: "placeholder",asg_s2: "",asg_s3: "",asg_s4: "",asg_s5: "",asg_s6: "",asg_s7: "",asg_s8: "",asg_s9: "",asg_s10: "",asg_s11: "",
-      }, 
-      pf: {
-        pf_s1: "placeholder",pf_s2: "",pf_s3: "",pf_s4: "",pf_s5: "",pf_s6: "",pf_s7: "",pf_s8: "",pf_s9: "",pf_s10: "",pf_s11: "",
-      }, 
-      sat: {
-        sat_s1: "placeholder",sat_s2: "",sat_s3: "",sat_s4: "",sat_s5: "",sat_s6: "",sat_s7: "",sat_s8: "",sat_s9: "",sat_s10: "",sat_s11: "",
-      },
+      yam_s: [
+        {id: 1, yam: ""},{id: 2, yam: ""},{id: 3, yam: ""},{id: 4, yam: ""},{id: 5, yam: ""},{id: 6, yam: ""},  {id: 7, yam: ""},{id: 8, yam: ""},{id: 9, yam: ""},{id: 10, yam: ""},{id: 11,yam: ""},
+      ], 
+      gd_s: [
+        {id: 1, gd: ""},{id: 2, gd: ""},{id: 3, gd: ""},{id: 4, gd: ""},{id: 5, gd: ""},{id: 6, gd: ""},{id: 7, gd: ""},{id: 8, gd: ""},{id: 9, gd: ""},{id: 10, gd: ""},{id: 11,gd: ""},
+      ], 
+      log_s: [
+        {id: 1, log: ""},{id: 2, log: ""},{id: 3, log: ""},{id: 4, log: ""},{id: 5, log: ""},{id: 6, log: ""},{id: 7, log: ""},{id: 8, log: ""},{id: 9, log: ""},{id: 10, log: ""},{id: 11,log: ""},
+      ], 
+      eh_s: [
+        {id: 1, eh: ""},{id: 2, eh: ""},{id: 3, eh: ""},{id: 4, eh: ""},{id: 5, eh: ""},{id: 6, eh: ""},{id: 7, eh: ""},{id: 8, eh: ""},{id: 9, eh: ""},{id: 10, eh: ""},{id: 11,eh: ""},
+      ], 
+      asl_s: [
+        {id: 1, asl: ""},{id: 2, asl: ""},{id: 3, asl: ""},{id: 4, asl: ""},{id: 5, asl: ""},{id: 6, asl: ""},{id: 7, asl: ""},{id: 8, asl: ""},{id: 9, asl: ""},{id: 10, asl: ""},{id: 11,asl: ""},
+      ], 
+      asg_s: [
+        {id: 1, asg: ""},{id: 2, asg: ""},{id: 3, asg: ""},{id: 4, asg: ""},{id: 5, asg: ""},{id: 6, asg: ""},{id: 7, asg: ""},{id: 8, asg: ""},{id: 9, asg: ""},{id: 10, asg: ""},{id: 11,asg: ""},
+      ], 
+      pf_s: [
+        {id: 1, pf: ""},{id: 2, pf: ""},{id: 3, pf: ""},{id: 4, pf: ""},{id: 5, pf: ""},{id: 6, pf: ""},{id: 7, pf: ""},{id: 8, pf: ""},{id: 9, pf: ""},{id: 10, pf: ""},{id: 11,pf: ""},
+      ], 
+      sat_s: [
+        {id: 1, sat: ""},{id: 2, sat: ""},{id: 3, sat: ""},{id: 4, sat: ""},{id: 5, sat: ""},{id: 6, sat: ""},{id: 7, sat: ""},{id: 8, sat: ""},{id: 9, sat: ""},{id: 10, sat: ""},{id: 11,sat: ""},
+      ],
      },
   }
 
@@ -316,7 +320,8 @@ const AddNewStudent = ({ viewState, sliceInstance }) => {
   //////////////////////////////////////////////////////////
 
   const sendToDatabase = async () => {
-    if(newStudentData.gender === "" || newStudentData.gender === "Gender") {
+    setAddingStudent(true)
+    if(newStudentData.gender === "" || newStudentData.gender === "gender") {
       setgenderError({
         message: "Please select gender to continue"
       })
@@ -356,6 +361,8 @@ const AddNewStudent = ({ viewState, sliceInstance }) => {
     }
   }
 
+  const [ addingStudent, setAddingStudent ] = useState(false)
+
   return ReactDOM.createPortal(
     <div className="add_new_student" style={{ display: viewState ? "flex": "none" }}>
       <div
@@ -385,17 +392,18 @@ const AddNewStudent = ({ viewState, sliceInstance }) => {
           <div className="inputBox">
             <div className="gender_error_messa">{ genderError.message }</div>
             <select name="gender" id="gender" onChange={(e) => settingNewGenderData(e)} value={newStudentData.gender}>
-              <option value="male">Gender</option>
+              <option value="gender">Gender</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
             </select>
           </div>
-          <div className="inputBox">
+          <div className="inputBox"> 
             <input
               type="submit"
               value="Add student"
               className="add_student_btn"
               onClick={() => sendToDatabase()}
+              disabled={addingStudent}
             />
           </div>
         </form>

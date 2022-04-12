@@ -4,28 +4,24 @@ const currentlyLoggedIn = {
     name: "Jake Doman",
     email: "proxyserver7798@gmail.com",
     userType: "admin",
+    class: "",
   },
-  classes: [
-    {
-      id: "1B2c",
-      name: "B",
-      grade: "9",
-    },
-    {
-      id: "1B2d",
-      name: "A",
-      grade: "10",
-    },
-    {
-      id: "1B2e",
-      name: "D",
-      grade: "8",
-    },
-  ],
 };
 
 const currentlyLoggedInReducer = (state = currentlyLoggedIn, action) => {
-  return state;
+  switch(action.type) {
+    case "SET_CURRENT_USER":  
+      return {
+        ...state,
+        userID: "YTYT",
+        name: "Richard Mutambisi",
+        email: "proxyserver7798@gmail.com",
+        userType: "admin",
+        class: "1A",
+      }
+      default:
+        return state
+  }
 };
 
 export default currentlyLoggedInReducer;

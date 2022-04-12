@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: 12px; 
 }
 
 .phase_title {
@@ -82,7 +82,7 @@
 }
 
 .year_month_box,
-.grade_box,
+.grade_box_first,
 .leve_grade_box,
 .english_home_box {
   margin-bottom: 5px;
@@ -90,7 +90,7 @@
 }
 
 .year_month_box input,
-.grade_box input,
+.grade_box_first input,
 .leve_grade_box input,
 .english_home_box input {
   border: none;
@@ -103,7 +103,7 @@
 }
 
 .year_month_box ~ div,
-.grade_box ~ div,
+.grade_box_first ~ div,
 .leve_grade_box ~ div,
 .english_home_box ~ div {
   font-size: 13px;

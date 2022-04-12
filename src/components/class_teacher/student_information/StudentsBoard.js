@@ -34,14 +34,15 @@ class StudentsBoard extends Component {
       backgroundColorSwitch: "transparent",
     },
     selected: {
-      fontWeight: "normal",
+      fontWeight: "bold",
+      color: "rgb(1,161,231)"
     },
     not_selected: {
-      fontWeight: "lighter",
+      fontWeight: "normal",
     },
   };
 
-  render() {
+  render() { 
     const { infoBtn, stdBtn, subBtns } = this.props.classTeacher;
     const { toggleTwo, toggleMany, studentsList, selectAstudent, newStudentInstance } = this.props;
     const { infoType, stdType } = subBtns;
@@ -49,7 +50,7 @@ class StudentsBoard extends Component {
     const { sectionsControls, addNewStudentTrigger } = this.props.studentsBoard;
     const { switchSex, triggerSection } = this.props;
 
-    const { studentsBoardData } = this.props
+    const { studentsBoardData, cur_class } = this.props
 
     console.log("Students list", this.props);
     //console.log("needed", toggleTwo);
@@ -393,7 +394,7 @@ class StudentsBoard extends Component {
                   <FiChevronLeft />
                   <p>Back</p>
                 </Link>
-                <h2 className="sl_title">Class 9B Students</h2>
+                <h2 className="sl_title">Class {cur_class} Students</h2>
               </div>
               <div className="the_class_list">
                 <div className="gender_select_box">

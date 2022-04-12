@@ -11,9 +11,12 @@ import Login from "./auth/Login"
 import CreateAccount from "./auth/CreateAccount"
 import AdminDashboard from "./components/admin/AdminDashboard";
 import HasAccessControlPage from "./components/class_teacher/HasAccessControlPage";
+import Setup from "./components/Setup";
+import ErrorPage from "./components/ErrorPage";
 import { upddateData } from "./store/actions/studentDataActions/schoolsAttendedActions"
+import ForgotPassword from "./auth/ForgotPassword";
 import {
-  collection,
+  collection, 
   onSnapshot,
   doc,
   setDoc,
@@ -23,7 +26,9 @@ import { v4 as uuidv4 } from 'uuid';
 
 const App = (props) => {
 
-  const currentUse = useAuth()
+  const current_user = useAuth()
+
+  //const currentUse = useAuth()
 
   async function handleLogout() {
     try{
@@ -33,14 +38,14 @@ const App = (props) => {
     }
   }
 
-  console.log("This is my real user: ", currentUse?.email)
+  // console.log("This is my real user: ", currentUse?.email)
 
   // useEffect(() => {
   //   localStorage.setItem("isLoggedIn", "false")
   // }, [])
 
-  console.log(props);
-  console.log("The uuid", uuidv4());
+  // console.log(props);
+  // console.log("The uuid", uuidv4());
   //const [data, setData] = useState(null);
 
   // const addNew = async () => {
@@ -123,7 +128,46 @@ const App = (props) => {
   //   feedSchoolsAttended(fromData)
   // }, [fromData]);
 
+  //////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
+  const [fromUsers, setfromUsers] = useState([]); 
+
+  useEffect(() => { 
+    
+    let unmounted = false
+    
+      onSnapshot(collection(db, "zx_users"),(snapshot) => {
+            //console.log("From Firebase",snapshot.docs.map((doc) => doc.data()));
+            let tempData = snapshot.docs.map((doc) => doc.data())
+            if(!unmounted) {
+            setfromUsers([
+                ...tempData
+            ])
+            }
+          }
+        )
+
+        return () => unmounted = true
+        
+  },[])
+
+  let current_auth_user
+  try {
+    current_auth_user = fromUsers.find(sin => sin.email === current_user.email)
+  } catch (error) {
+    
+  }
+
+  useEffect(() => { console.log("Authed user", current_auth_user) }, [fromUsers])
+  //////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
+
   const [studentsBoardData, setstudentsBoardData] = useState([]);
+
+  let gradedStudents;
+  try{
+    gradedStudents = studentsBoardData.filter(student => student.class === current_auth_user.class)
+  } catch(err){}
 
     useEffect(() => {
       let unload = false
@@ -131,7 +175,7 @@ const App = (props) => {
         collection(db, "identification"),
         (snapshot) => {
           if(!unload) {
-            console.log(snapshot.docs.map((doc) => doc.data()));
+            //console.log(snapshot.docs.map((doc) => doc.data()));
             setstudentsBoardData([
               ...snapshot.docs.map((doc) => doc.data())
             ])
@@ -142,7 +186,7 @@ const App = (props) => {
       return () => unload = false
     }, [])
 
-    //useEffect(() => console.log("Got it", studentsBoardData), [studentsBoardData])
+    useEffect(() => console.log("Got it", gradedStudents), [studentsBoardData])
   
 
   return (
@@ -152,11 +196,23 @@ const App = (props) => {
         <Routes>
           <Route path="/" exact element={<Login />} />
           <Route path="/create_account" exact element={<CreateAccount />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/students_board" element={<StudentsBoard studentsBoardData={studentsBoardData} />} />
-          <Route path="/students_select" element={<StudentSelect />} />
-          <Route path="/admin_dashboard" element={<AdminDashboard />} />
-          <Route path="/no_access" element={<HasAccessControlPage />} />
+          {
+            current_user && (
+              <>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route 
+                  path="/students_board" 
+                  element={<StudentsBoard studentsBoardData={gradedStudents} cur_class={current_auth_user && current_auth_user.class || "..."} />}
+                   />
+                <Route path="/students_select" element={<StudentSelect />} />
+                <Route path="/admin_dashboard" element={<AdminDashboard />} />
+                <Route path="/no_access" element={<HasAccessControlPage />} />
+                <Route path="/030fe9ffb0-2dbf2-40ffc-884f6-c8fff0cc0dfc1b" element={<Setup />} />
+              </>
+            )
+          }
+          <Route path="forgot_password" element = {<ForgotPassword />} />
+          <Route path="*" element={<ErrorPage />} /> 
         </Routes>
         {/* <button onClick={() => addNew()}>CLICK CLICK</button> */}
       </div>
