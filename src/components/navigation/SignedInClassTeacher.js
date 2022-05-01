@@ -102,5 +102,5 @@ const mapStateToProps = (state) => {
     userData: state.loggedIn.userInfo,
   };
 };
-
+ 
 export default connect(mapStateToProps)(SignedInClassTeacher);

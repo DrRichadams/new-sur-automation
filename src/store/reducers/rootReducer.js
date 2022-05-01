@@ -67,5 +67,5 @@ const rootReducer = combineReducers({
   NavbarReducer,
 
 });
-
+ 
 export default rootReducer;

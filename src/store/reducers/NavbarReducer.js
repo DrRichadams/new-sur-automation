@@ -16,7 +16,7 @@ const NavbarReducer = (state = initState, action) => {
                     isDisplayed: false,
                 }
             } break
-        default:
+        default: 
         return state
     }
 }

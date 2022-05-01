@@ -30,7 +30,7 @@ const classTeacherReducer = (state = initState, action) => {
       //   infoBtn: action.btn == "information" ? true : false,
       //   stdBtn: action.btn == "students" ? true : false,
       // };
-      if (action.btn == "information") {
+      if (action.btn == "information") { 
         return {
           ...state,
           infoBtn: true,

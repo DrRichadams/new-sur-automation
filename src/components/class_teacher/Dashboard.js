@@ -129,7 +129,7 @@ const Dashboard = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    classTeacher: state.classTeacher,
+    classTeacher: state.classTeacher, 
   };
 };
 

@@ -474,7 +474,7 @@ const mapStateToProps = (state) => {
     studentsBoard: state.studentsBoard,
     studentsList: state.exIdentification,
   };
-};
+}; 
 
 const mapDispatchToProps = (dispatch) => {
   return {
