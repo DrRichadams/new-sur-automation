@@ -44,12 +44,19 @@ const firebaseConfig = {
   // messagingSenderId: "20352713277",
   // appId: "1:20352713277:web:81c51c416639688868a054"
 
-  apiKey: "AIzaSyCOXNJ6c_yTC-ZHSdH3EzS0IIQwkWJHFHw",
-  authDomain: "madctoria-primary.firebaseapp.com",
-  projectId: "madctoria-primary",
-  storageBucket: "madctoria-primary.appspot.com",
-  messagingSenderId: "954524882536",
-  appId: "1:954524882536:web:4b36e05e16fb147006cddd"
+  // apiKey: "AIzaSyCOXNJ6c_yTC-ZHSdH3EzS0IIQwkWJHFHw",
+  // authDomain: "madctoria-primary.firebaseapp.com",
+  // projectId: "madctoria-primary",
+  // storageBucket: "madctoria-primary.appspot.com",
+  // messagingSenderId: "954524882536",
+  // appId: "1:954524882536:web:4b36e05e16fb147006cddd"
+
+  apiKey: "AIzaSyC3xo-3BP5IakKyJECUh-oO1mEhh1uz7do",
+  authDomain: "sur-auto2.firebaseapp.com",
+  projectId: "sur-auto2",
+  storageBucket: "sur-auto2.appspot.com",
+  messagingSenderId: "20352713277",
+  appId: "1:20352713277:web:81c51c416639688868a054"
 };
 
 // Initialize Firebase
